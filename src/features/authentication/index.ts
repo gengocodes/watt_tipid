@@ -1,6 +1,7 @@
 export * from "./components/AuthCard";
 export * from "./components/LoginForm";
 export * from "./components/RegisterForm";
+export * from "./components/AuthSplitLayout";
 export * from "./hooks/useAuth";
 export * from "./store/auth.store";
 export * from "./schemas/auth.schema";

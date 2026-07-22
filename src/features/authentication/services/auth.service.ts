@@ -4,16 +4,17 @@ import { LoginInput, RegisterInput } from "../schemas/auth.schema";
 import { LoginResponse, RegisterResponse, User } from "../types";
 
 export const authService = {
-  async register(
-    data: Omit<RegisterInput, "confirmPassword">,
-  ): Promise<RegisterResponse> {
-    const { firstName, lastName, ...rest } = data;
+  async register(data: RegisterInput): Promise<RegisterResponse> {
+    const { firstName, lastName, barangayCity, email, password } = data;
+
     const response = await apiClient.post<RegisterResponse>(
       AUTH_ENDPOINTS.REGISTER,
       {
-        ...rest,
+        email,
+        password,
         first_name: firstName,
         last_name: lastName,
+        barangay_city: barangayCity,
       },
     );
     return response.data;

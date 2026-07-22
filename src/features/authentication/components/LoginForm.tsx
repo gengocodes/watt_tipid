@@ -1,17 +1,19 @@
 "use client";
 
-import { FC } from "react";
+import { FC, ReactElement } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AxiosError } from "axios";
-import { loginSchema, LoginInput } from "../schemas/auth.schema";
-import { useAuth } from "../hooks/useAuth";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import {
+  loginSchema,
+  LoginInput,
+} from "@/features/authentication/schemas/auth.schema";
+import { useAuth } from "@/features/authentication/hooks/useAuth";
 import { FormError } from "@/shared/ui/FormError";
+import { FormInput } from "@/shared/ui/FormInput";
+import { FormSubmitButton } from "@/shared/ui/FormSubmitButton";
+import { getAxiosErrorMessage } from "@/shared/utils/error";
 
-export const LoginForm: FC = () => {
+export const LoginForm: FC = (): ReactElement => {
   const { login, isLoggingIn, loginError } = useAuth();
 
   const {
@@ -26,49 +28,39 @@ export const LoginForm: FC = () => {
     },
   });
 
-  const onSubmit = (data: LoginInput) => {
+  const onSubmit = (data: LoginInput): void => {
     login(data);
   };
 
-  const axiosError = loginError as AxiosError<{ detail?: string }> | null;
-  const errorMessage =
-    axiosError?.response?.data?.detail || axiosError?.message || null;
+  const errorMessage = getAxiosErrorMessage(loginError);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <FormError message={errorMessage} />
 
-      <div className="space-y-2">
-        <Label htmlFor="email">Email address</Label>
-        <Input
-          id="email"
-          type="email"
-          placeholder="johndoe@example.com"
-          disabled={isLoggingIn}
-          {...register("email")}
-        />
-        {errors.email && (
-          <p className="text-xs text-red-500">{errors.email.message}</p>
-        )}
-      </div>
+      <FormInput
+        id="email"
+        type="email"
+        label="Email address"
+        placeholder="juandelacruz@email.com"
+        disabled={isLoggingIn}
+        error={errors.email?.message}
+        {...register("email")}
+      />
 
-      <div className="space-y-2">
-        <Label htmlFor="password">Password</Label>
-        <Input
-          id="password"
-          type="password"
-          placeholder="••••••••••"
-          disabled={isLoggingIn}
-          {...register("password")}
-        />
-        {errors.password && (
-          <p className="text-xs text-red-500">{errors.password.message}</p>
-        )}
-      </div>
+      <FormInput
+        id="password"
+        type="password"
+        label="Password"
+        placeholder="••••••••••"
+        disabled={isLoggingIn}
+        error={errors.password?.message}
+        {...register("password")}
+      />
 
-      <Button type="submit" className="w-full" disabled={isLoggingIn}>
-        {isLoggingIn ? "Signing in..." : "Sign In"}
-      </Button>
+      <FormSubmitButton isLoading={isLoggingIn} loadingText="Logging in...">
+        Log In
+      </FormSubmitButton>
     </form>
   );
 };

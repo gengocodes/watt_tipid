@@ -17,10 +17,9 @@ export const useAuth = () => {
   });
 
   const registerMutation = useMutation({
-    mutationFn: (data: Omit<RegisterInput, "confirmPassword">) =>
-      authService.register(data),
+    mutationFn: (data: RegisterInput) => authService.register(data),
     onSuccess: () => {
-      router.push("/login");
+      router.push("/");
     },
   });
 
