@@ -128,3 +128,11 @@
     @apply font-sans;
   }
 }
+
+.text-xxs {
+  font-size: 11px;
+}
+
+.text-xxxs {
+  font-size: 10px;
+}

@@ -1,7 +1,6 @@
 import { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 
 let refreshPromise: Promise<void> | null = null;
-let isRedirecting = false;
 
 const refreshAccessToken = async (instance: AxiosInstance): Promise<void> => {
   refreshPromise ??= instance
@@ -45,26 +44,11 @@ export const setupInterceptors = (instance: AxiosInstance): void => {
       if (status === 401 && !originalRequest._retry && !isAuthEndpoint) {
         originalRequest._retry = true;
 
-        try {
-          // Wait for the current refresh operation (or start one if none exists).
-          await refreshAccessToken(instance);
+        // Wait for the current refresh operation (or start one if none exists).
+        await refreshAccessToken(instance);
 
-          // Retry the original request using the refreshed authentication cookies.
-          return instance(originalRequest);
-        } catch (refreshError) {
-          // If the refresh token is no longer valid, redirect the user
-          // to the login page so they can authenticate again.
-          if (
-            typeof window !== "undefined" &&
-            !isRedirecting &&
-            window.location.pathname !== "/login"
-          ) {
-            isRedirecting = true;
-            window.location.replace("/login");
-          }
-
-          throw refreshError;
-        }
+        // Retry the original request using the refreshed authentication cookies.
+        return instance(originalRequest);
       }
 
       throw error;
