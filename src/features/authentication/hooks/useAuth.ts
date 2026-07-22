@@ -6,7 +6,15 @@ import { LoginInput, RegisterInput } from "../schemas/auth.schema";
 
 export const useAuth = () => {
   const router = useRouter();
-  const { user, isAuthenticated, isLoading, setUser, clear } = useAuthStore();
+  const {
+    user,
+    isAuthenticated,
+    isLoading,
+    setUser,
+    clear,
+    setRegisteredEmail,
+    setAuthView,
+  } = useAuthStore();
 
   const loginMutation = useMutation({
     mutationFn: (data: LoginInput) => authService.login(data),
@@ -18,8 +26,9 @@ export const useAuth = () => {
 
   const registerMutation = useMutation({
     mutationFn: (data: RegisterInput) => authService.register(data),
-    onSuccess: () => {
-      router.push("/");
+    onSuccess: (_, variables) => {
+      setRegisteredEmail(variables.email);
+      setAuthView("login");
     },
   });
 

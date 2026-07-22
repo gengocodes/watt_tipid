@@ -1,14 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore, AuthSplitLayout } from "@/features/authentication";
 import { LandingView } from "@/features/landing";
 import { LoadingScreen } from "@/shared/ui/LoadingScreen";
 
 export default function RootPage() {
-  const [view, setView] = useState<"landing" | "login" | "register">("landing");
-  const { isAuthenticated, isLoading } = useAuthStore();
+  const { isAuthenticated, isLoading, authView, setAuthView } = useAuthStore();
   const router = useRouter();
 
   // Redirect to dashboard if already authenticated
@@ -22,20 +21,20 @@ export default function RootPage() {
     return <LoadingScreen />;
   }
 
-  if (view === "landing") {
+  if (authView === "landing") {
     return (
       <LandingView
-        onLoginClick={() => setView("login")}
-        onRegisterClick={() => setView("register")}
+        onLoginClick={() => setAuthView("login")}
+        onRegisterClick={() => setAuthView("register")}
       />
     );
   }
 
   return (
     <AuthSplitLayout
-      view={view}
-      onViewChange={setView}
-      onBack={() => setView("landing")}
+      view={authView}
+      onViewChange={setAuthView}
+      onBack={() => setAuthView("landing")}
     />
   );
 }
