@@ -3,7 +3,7 @@ import { Leaf } from "lucide-react";
 
 export const FooterSection: FC = (): ReactElement => {
   return (
-    <footer className="bg-muted border-t border-muted-foreground/10 pt-16 pb-8 text-muted-foreground">
+    <footer className="bg-muted border-t pt-16 pb-8 text-muted-foreground">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <div className="md:col-span-2 space-y-4">
@@ -71,7 +71,7 @@ export const FooterSection: FC = (): ReactElement => {
           </div>
         </div>
 
-        <div className="border-t border-muted-foreground/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xxs md:text-xs text-muted-foreground/50 font-base">
+        <div className="border-t pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xxs md:text-xs text-muted-foreground/50 font-base">
           <p className="text-center md:text-left leading-relaxed">
             © 2026 WattTipid. A Web-Based GenAI Energy Consumption Advisory
             System for Filipino Households.
