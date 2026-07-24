@@ -60,7 +60,6 @@ export function AppSidebar() {
       title: "Settings",
       url: "/settings",
       icon: Settings,
-      disabled: true,
     },
   ];
 
