@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, ReactNode } from "react";
-import { useAuthStore } from "@/features/authentication/store/auth.store";
-import { authService } from "@/features/authentication/services/auth.service";
+import { useAuthStore, useAuthMe } from "@/features/authentication";
 
 export default function AuthProvider({
   children,
@@ -13,20 +12,19 @@ export default function AuthProvider({
   const clear = useAuthStore((state) => state.clear);
   const setLoading = useAuthStore((state) => state.setLoading);
 
-  useEffect(() => {
-    const restoreSession = async () => {
-      try {
-        const user = await authService.me();
-        setUser(user);
-      } catch {
-        clear();
-      } finally {
-        setLoading(false);
-      }
-    };
+  const { data: user, isLoading, isError } = useAuthMe();
 
-    restoreSession();
-  }, [setUser, clear, setLoading]);
+  useEffect(() => {
+    if (user) {
+      setUser(user);
+    } else if (isError) {
+      clear();
+    }
+    if (!isLoading) {
+      setLoading(false);
+    }
+  }, [user, isError, isLoading, setUser, clear, setLoading]);
 
   return <>{children}</>;
 }
+
