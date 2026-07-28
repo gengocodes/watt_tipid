@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { LoginForm } from "./LoginForm";
 import { RegisterForm } from "./RegisterForm";
+import { RegisterVerifyForm } from "./RegisterVerifyForm";
 import { AuthDecorCircles } from "./AuthDecorCircles";
 import { AuthFeatureItem } from "./AuthFeatureItem";
 import { AuthStatItem } from "./AuthStatItem";
@@ -15,8 +16,8 @@ import { AuthTabToggle } from "./AuthTabToggle";
 import { AuthSwitchFooter } from "./AuthSwitchFooter";
 
 interface AuthSplitLayoutProps {
-  view: "login" | "register";
-  onViewChange: (view: "login" | "register") => void;
+  view: "login" | "register" | "verify_register";
+  onViewChange: (view: "login" | "register" | "verify_register") => void;
   onBack: () => void;
 }
 
@@ -103,18 +104,26 @@ export const AuthSplitLayout: FC<AuthSplitLayoutProps> = ({
 
           <div className="mb-6">
             <h1 className="text-2xl font-semibold text-primary">
-              {isLogin ? "Welcome back!" : "Create your account"}
+              {view === "verify_register"
+                ? "Verify your email"
+                : isLogin
+                ? "Welcome back!"
+                : "Create your account"}
             </h1>
             <p className="text-muted-foreground text-sm mt-1">
-              {isLogin
+              {view === "verify_register"
+                ? "Verify registration code"
+                : isLogin
                 ? "Sign in to your WattTipid account"
                 : "Start your energy-saving journey today"}
             </p>
           </div>
 
-          <AuthTabToggle activeView={view} onViewChange={onViewChange} />
+          {view !== "verify_register" && (
+            <AuthTabToggle activeView={view} onViewChange={onViewChange} />
+          )}
 
-          {isLogin ? (
+          {view === "login" && (
             <div>
               <LoginForm />
               <AuthSwitchFooter
@@ -123,7 +132,9 @@ export const AuthSplitLayout: FC<AuthSplitLayoutProps> = ({
                 onAction={() => onViewChange("register")}
               />
             </div>
-          ) : (
+          )}
+
+          {view === "register" && (
             <div>
               <RegisterForm />
               <AuthSwitchFooter
@@ -131,6 +142,12 @@ export const AuthSplitLayout: FC<AuthSplitLayoutProps> = ({
                 actionLabel="Log in"
                 onAction={() => onViewChange("login")}
               />
+            </div>
+          )}
+
+          {view === "verify_register" && (
+            <div>
+              <RegisterVerifyForm />
             </div>
           )}
         </div>

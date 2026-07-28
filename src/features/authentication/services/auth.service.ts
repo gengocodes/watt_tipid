@@ -1,7 +1,12 @@
 import { apiClient } from "@/shared/api";
 import { AUTH_ENDPOINTS } from "../constants";
 import { LoginInput, RegisterInput } from "../schemas/auth.schema";
-import { LoginResponse, RegisterResponse, User } from "../types";
+import {
+  LoginResponse,
+  RegisterResponse,
+  VerifyRegisterResponse,
+  User,
+} from "../types";
 
 export const authService = {
   async register(data: RegisterInput): Promise<RegisterResponse> {
@@ -40,6 +45,30 @@ export const authService = {
 
   async me(): Promise<User> {
     const response = await apiClient.get<User>("/auth/me");
+    return response.data;
+  },
+
+  async verifyRegister(
+    email: string,
+    code: string,
+  ): Promise<VerifyRegisterResponse> {
+    const response = await apiClient.post<VerifyRegisterResponse>(
+      "/auth/register/verify",
+      {
+        email,
+        code,
+      },
+    );
+    return response.data;
+  },
+
+  async resendRegisterCode(email: string): Promise<{ message: string }> {
+    const response = await apiClient.post<{ message: string }>(
+      "/auth/register/resend",
+      {
+        email,
+      },
+    );
     return response.data;
   },
 };

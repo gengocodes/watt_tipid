@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { User } from "../types";
 
-type AuthView = "landing" | "login" | "register";
+type AuthView = "landing" | "login" | "register" | "verify_register";
 
 interface AuthState {
   user: User | null;
@@ -41,7 +41,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       registeredEmail: email,
     }),
 
-  setAuthView: (view: "landing" | "login" | "register") =>
+  setAuthView: (view: AuthView) =>
     set({
       authView: view,
     }),
