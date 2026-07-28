@@ -19,10 +19,26 @@ export const settingsService = {
     return response.data;
   },
 
-  async updateEmail(data: UserEmailUpdateRequest): Promise<UserEmailResponse> {
+  async updateEmail(
+    data: UserEmailUpdateRequest,
+  ): Promise<UserEmailResponse> {
     const response = await apiClient.patch<UserEmailResponse>(
       "/users/email",
       data,
+    );
+    return response.data;
+  },
+
+  async verifyEmailChange(code: string): Promise<UserEmailResponse> {
+    const response = await apiClient.post<UserEmailResponse>("/users/email/verify", {
+      code,
+    });
+    return response.data;
+  },
+
+  async resendEmailChangeCode(): Promise<{ message: string }> {
+    const response = await apiClient.post<{ message: string }>(
+      "/users/email/resend",
     );
     return response.data;
   },

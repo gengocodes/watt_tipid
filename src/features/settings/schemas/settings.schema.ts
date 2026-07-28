@@ -36,7 +36,12 @@ export const electricityRateSchema = z.object({
     .gt(0, "Rate must be greater than 0"),
 });
 
+export const verifyEmailChangeSchema = z.object({
+  code: z.string().length(6, "Code must be exactly 6 digits"),
+});
+
 export type ProfileInput = z.infer<typeof profileSchema>;
 export type EmailInput = z.infer<typeof emailSchema>;
 export type PasswordInput = z.infer<typeof passwordSchema>;
 export type ElectricityRateInput = z.infer<typeof electricityRateSchema>;
+export type VerifyEmailChangeInput = z.infer<typeof verifyEmailChangeSchema>;

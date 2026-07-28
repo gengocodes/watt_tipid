@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { useAuthStore } from "../store/auth.store";
 import { authService } from "../services/auth.service";
 import { LoginInput, RegisterInput } from "../schemas/auth.schema";
+import { toast } from "react-toastify";
 
 export const useAuth = () => {
   const router = useRouter();
@@ -12,6 +13,7 @@ export const useAuth = () => {
     isLoading,
     setUser,
     clear,
+    registeredEmail,
     setRegisteredEmail,
     setAuthView,
   } = useAuthStore();
@@ -28,7 +30,23 @@ export const useAuth = () => {
     mutationFn: (data: RegisterInput) => authService.register(data),
     onSuccess: (_, variables) => {
       setRegisteredEmail(variables.email);
+      setAuthView("verify_register");
+    },
+  });
+
+  const verifyRegisterMutation = useMutation({
+    mutationFn: (data: { email: string; code: string }) =>
+      authService.verifyRegister(data.email, data.code),
+    onSuccess: () => {
+      toast.success("Account created successfully!");
       setAuthView("login");
+    },
+  });
+
+  const resendRegisterCodeMutation = useMutation({
+    mutationFn: (email: string) => authService.resendRegisterCode(email),
+    onSuccess: () => {
+      toast.success("Verification code resent successfully!");
     },
   });
 
@@ -50,6 +68,7 @@ export const useAuth = () => {
     user,
     isAuthenticated,
     isLoading,
+    registeredEmail,
 
     // Login Action
     login: loginMutation.mutate,
@@ -60,6 +79,16 @@ export const useAuth = () => {
     register: registerMutation.mutate,
     isRegistering: registerMutation.isPending,
     registerError: registerMutation.error,
+
+    // Verify Register Action
+    verifyRegister: verifyRegisterMutation.mutate,
+    isVerifyingRegister: verifyRegisterMutation.isPending,
+    verifyRegisterError: verifyRegisterMutation.error,
+
+    // Resend Register Code Action
+    resendRegisterCode: resendRegisterCodeMutation.mutate,
+    isResendingRegisterCode: resendRegisterCodeMutation.isPending,
+    resendRegisterCodeError: resendRegisterCodeMutation.error,
 
     // Logout Action
     logout: logoutMutation.mutate,

@@ -24,8 +24,22 @@ export const useProfileSettings = () => {
     mutationFn: (data: UserEmailUpdateRequest) =>
       settingsService.updateEmail(data),
     onSuccess: () => {
+      toast.success("Verification code sent to your new email!");
+    },
+  });
+
+  const verifyEmailMutation = useMutation({
+    mutationFn: (code: string) => settingsService.verifyEmailChange(code),
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: AUTH_KEYS.ME });
       toast.success("Email address updated successfully!");
+    },
+  });
+
+  const resendEmailCodeMutation = useMutation({
+    mutationFn: () => settingsService.resendEmailChangeCode(),
+    onSuccess: () => {
+      toast.success("Verification code resent successfully!");
     },
   });
 
@@ -45,6 +59,14 @@ export const useProfileSettings = () => {
     updateEmail: updateEmailMutation.mutate,
     isUpdatingEmail: updateEmailMutation.isPending,
     updateEmailError: updateEmailMutation.error,
+
+    verifyEmail: verifyEmailMutation.mutate,
+    isVerifyingEmail: verifyEmailMutation.isPending,
+    verifyEmailError: verifyEmailMutation.error,
+
+    resendEmailCode: resendEmailCodeMutation.mutate,
+    isResendingEmailCode: resendEmailCodeMutation.isPending,
+    resendEmailCodeError: resendEmailCodeMutation.error,
 
     updatePassword: updatePasswordMutation.mutate,
     isUpdatingPassword: updatePasswordMutation.isPending,
