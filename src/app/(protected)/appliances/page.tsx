@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, RefreshCw } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAppliances, useUserSettings } from "@/features/energy";
 import { ApplianceTable } from "@/features/energy/components/ApplianceTable";
