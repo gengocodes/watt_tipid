@@ -48,7 +48,6 @@ export function AppSidebar() {
       title: "AI Advisor",
       url: "/chat",
       icon: MessageSquare,
-      disabled: true,
     },
     {
       title: "Savings Tips",
@@ -64,11 +63,7 @@ export function AppSidebar() {
   ];
 
   return (
-    <Sidebar
-      variant="sidebar"
-      collapsible="icon"
-      className="border-r"
-    >
+    <Sidebar variant="sidebar" collapsible="icon" className="border-r">
       <SidebarHeader
         className={cn(
           "h-20 border-b p-6 flex justify-between",
