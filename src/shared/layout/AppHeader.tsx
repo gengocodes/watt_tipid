@@ -1,13 +1,19 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useAuth } from "@/features/authentication";
+import { useAgentStore } from "@/features/agents/store/agent.store";
 import { toast } from "react-toastify";
-import { Bell } from "lucide-react";
+import { Bell, RefreshCw } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
 
 export function AppHeader() {
   const { user } = useAuth();
+  const pathname = usePathname();
+  const { resetMessages } = useAgentStore();
+  const isChatRoute = pathname === "/chat";
 
   const getInitials = (firstName?: string, lastName?: string) => {
     const f = firstName?.charAt(0) ?? "";
@@ -18,7 +24,21 @@ export function AppHeader() {
   return (
     <header className="flex h-20 shrink-0 items-center justify-between border-b bg-sidebar px-6">
       <div className="flex items-center gap-4">
-        <SidebarTrigger className="text-muted-foreground" />
+        <SidebarTrigger className="text-muted-foreground block md:hidden" />
+        <Separator orientation="vertical" className="block md:hidden" />
+
+        {isChatRoute && (
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              onClick={resetMessages}
+              className="text-muted-foreground"
+              title="Start a new chat conversation"
+            >
+              <RefreshCw />
+            </Button>
+          </div>
+        )}
       </div>
 
       <div className="flex items-center gap-4">
