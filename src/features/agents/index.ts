@@ -1,7 +1,6 @@
 export * from "./components/ChatWindow";
 export * from "./components/ChatMessage";
 export * from "./components/ChatInput";
-export * from "./components/TypingIndicator";
 export * from "./components/SuggestedPrompts";
 export * from "./components/AgentAvatar";
 export * from "./components/UserAvatar";

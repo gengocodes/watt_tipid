@@ -2,7 +2,7 @@ import { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 
 let refreshPromise: Promise<void> | null = null;
 
-const refreshAccessToken = async (instance: AxiosInstance): Promise<void> => {
+export const refreshAccessToken = async (instance: AxiosInstance): Promise<void> => {
   refreshPromise ??= instance
     .post("/auth/refresh")
     .then(() => {})

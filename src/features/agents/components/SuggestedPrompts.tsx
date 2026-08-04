@@ -10,6 +10,7 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { SUGGESTED_PROMPTS } from "../constants/agent.constants";
+import { cn } from "@/lib/utils";
 
 interface SuggestedPromptsProps {
   onSelectPrompt: (prompt: string) => void;
@@ -23,40 +24,41 @@ export const SuggestedPrompts: React.FC<SuggestedPromptsProps> = ({
   const getPromptIcon = (iconName: string) => {
     switch (iconName) {
       case "zap":
-        return <Zap className="h-4 w-4 text-amber-500" />;
+        return <Zap className="size-4 text-amber-500 shrink-0" />;
       case "calculator":
-        return <Calculator className="h-4 w-4 text-blue-500" />;
+        return <Calculator className="size-4 text-blue-500 shrink-0" />;
       case "lightbulb":
-        return <Lightbulb className="h-4 w-4 text-emerald-500" />;
+        return <Lightbulb className="size-4 text-emerald-500 shrink-0" />;
       case "clock":
-        return <Clock className="h-4 w-4 text-purple-500" />;
+        return <Clock className="size-4 text-purple-500 shrink-0" />;
       default:
-        return <Sparkles className="h-4 w-4 text-emerald-500" />;
+        return <Sparkles className="size-4 text-primary shrink-0" />;
     }
   };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 w-full mt-8 text-left">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-3.5 w-full mt-8 text-left">
       {SUGGESTED_PROMPTS.map((promptItem) => (
         <button
           key={promptItem.title}
           type="button"
           onClick={() => onSelectPrompt(promptItem.prompt)}
           disabled={disabled}
-          className="flex flex-col justify-between p-4 rounded-2xl border bg-card hover:bg-sidebar-primary/5 hover:border-sidebar-primary transition-all cursor-pointer group relative"
+          className={cn(
+            "group relative flex flex-col justify-between p-4 rounded-2xl border border-border/40 bg-card/60 hover:bg-muted/50 hover:border-border/80 transition-all duration-200 cursor-pointer text-left select-none shadow-2xs hover:shadow-sm",
+            disabled && "opacity-50 cursor-not-allowed",
+          )}
         >
-          <div className="flex items-center justify-between w-full mb-2">
+          <div className="flex items-center justify-between w-full mb-1">
             <div className="flex items-center gap-2">
-              <div className="p-2 rounded-xl bg-muted group-hover:bg-sidebar-primary/10 transition-colors">
-                {getPromptIcon(promptItem.icon)}
-              </div>
-              <span className="text-xs font-medium text-foreground group-hover:text-sidebar-primary transition-colors">
+              {getPromptIcon(promptItem.icon)}
+              <span className="text-xs md:text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
                 {promptItem.title}
               </span>
             </div>
-            <ArrowUpRight className="h-4 w-4 text-muted-foreground group-hover:text-sidebar-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+            <ArrowUpRight className="size-3.5 text-muted-foreground/40 group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
           </div>
-          <p className="text-xs text-muted-foreground group-hover:text-sidebar-primary line-clamp-2 text-left">
+          <p className="text-xs text-muted-foreground/70 line-clamp-2 leading-relaxed">
             {promptItem.desc}
           </p>
         </button>

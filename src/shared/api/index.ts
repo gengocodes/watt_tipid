@@ -1,2 +1,3 @@
 export { apiClient } from "./client";
-export { setupInterceptors } from "./interceptors";
+export { setupInterceptors, refreshAccessToken } from "./interceptors";
+export { apiStream } from "./stream";
