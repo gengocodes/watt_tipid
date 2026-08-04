@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { useAuth } from "@/features/authentication";
 import { useAgentStore } from "@/features/agents/store/agent.store";
 import { toast } from "react-toastify";
-import { Bell, RefreshCw } from "lucide-react";
+import { Bell, SquarePen } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
@@ -28,21 +28,22 @@ export function AppHeader() {
         <Separator orientation="vertical" className="block md:hidden" />
 
         {isChatRoute && (
-          <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              onClick={resetMessages}
-              className="text-muted-foreground"
-              title="Start a new chat conversation"
-            >
-              <RefreshCw />
-            </Button>
-          </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={resetMessages}
+            className="gap-2 rounded-xl text-muted-foreground hover:text-foreground hover:bg-accent/80 transition-all text-xs"
+            title="Start a new chat conversation"
+          >
+            <SquarePen className="h-4 w-4 shrink-0" />
+            <span className="hidden sm:inline">New Chat</span>
+          </Button>
         )}
       </div>
 
       <div className="flex items-center gap-4">
         <button
+          type="button"
           className="cursor-pointer relative h-9 w-9 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
           onClick={() => toast.info("Coming soon...")}
         >

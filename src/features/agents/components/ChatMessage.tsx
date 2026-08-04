@@ -9,6 +9,7 @@ import { ChatMessageItem } from "../types/agent.types";
 import { ASSISTANT_NAME } from "../constants/agent.constants";
 import { AgentAvatar } from "./AgentAvatar";
 import { UserAvatar } from "./UserAvatar";
+import { AgentExecutionTimeline } from "./AgentExecutionTimeline";
 
 interface ChatMessageProps {
   message: ChatMessageItem;
@@ -39,7 +40,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
 
       <div
         className={cn(
-          "flex flex-col gap-1",
+          "flex flex-col gap-1 w-full max-w-full overflow-hidden",
           isUser ? "items-end" : "items-start",
         )}
       >
@@ -55,49 +56,51 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
           </span>
         </div>
 
-        <div
-          className={cn(
-            "rounded-2xl px-4 py-3 text-sm transition-all leading-relaxed relative group shadow-2xs",
-            isUser
-              ? "bg-linear-to-br from-primary to-sidebar-primary text-white rounded-tr-xs"
-              : "bg-card text-card-foreground border rounded-tl-xs",
-          )}
-        >
-          {isUser ? (
+        {isUser ? (
+          <div className="rounded-2xl px-4 py-3 text-sm transition-all leading-relaxed relative group shadow-2xs bg-linear-to-br from-primary to-sidebar-primary text-white rounded-tr-xs">
             <p className="whitespace-pre-wrap wrap-break-words">
               {message.content}
             </p>
-          ) : (
-            <div className="space-y-2">
-              <div className="prose prose-sm max-w-none space-y-2 text-foreground leading-relaxed wrap-break-words">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                  {message.content}
-                </ReactMarkdown>
-              </div>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-2 items-start w-full">
+            <AgentExecutionTimeline
+              activities={message.activities}
+              executionTimeSeconds={message.executionTimeSeconds}
+            />
 
-              <div className="flex items-center justify-end gap-1 pt-1 text-xxxs text-muted-foreground/80">
-                <button
-                  type="button"
-                  onClick={handleCopy}
-                  className="inline-flex items-center gap-2 px-2 py-1 rounded-md hover:bg-muted/50 transition-colors text-xxs font-medium cursor-pointer text-muted-foreground hover:text-foreground"
-                  title="Copy message to clipboard"
-                >
-                  {copied ? (
-                    <>
-                      <Check className="h-3 w-3 text-primary" />
-                      <span className="text-primary">Copied</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="h-3 w-3" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
+            {message.content && (
+              <div className="rounded-2xl rounded-tl-xs px-4 py-3 text-sm transition-all leading-relaxed relative group shadow-none border bg-card text-card-foreground">
+                <div className="prose prose-sm max-w-none space-y-2 text-foreground leading-relaxed wrap-break-words">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {message.content}
+                  </ReactMarkdown>
+                </div>
+
+                <div className="flex items-center justify-end gap-1 pt-1.5 text-xxxs text-muted-foreground/80">
+                  <button
+                    type="button"
+                    onClick={handleCopy}
+                    className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md hover:bg-muted/50 transition-colors text-xxs font-medium cursor-pointer text-muted-foreground hover:text-foreground"
+                    title="Copy message to clipboard"
+                  >
+                    {copied ? (
+                      <>
+                        <Check className="h-3 w-3 text-primary" />
+                        <span className="text-primary">Copied</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="h-3 w-3" />
+                        <span>Copy</span>
+                      </>
+                    )}
+                  </button>
+                </div>
               </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
