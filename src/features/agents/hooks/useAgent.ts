@@ -3,7 +3,11 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { toast } from "react-toastify";
 import { agentService } from "../services/agent.service";
-import { ChatMessageItem, AgentStreamEvent } from "../types/agent.types";
+import {
+  ChatMessageItem,
+  AgentStreamEvent,
+  ChatHistoryMessage,
+} from "../types/agent.types";
 import { useAgentStore } from "../store/agent.store";
 
 export const useAgent = () => {
@@ -52,6 +56,14 @@ export const useAgent = () => {
     setError(null);
     setIsSending(true);
 
+    const historyPayload: ChatHistoryMessage[] = messages
+      .filter((msg) => msg.content && msg.content.trim() !== "")
+      .slice(-10)
+      .map((msg) => ({
+        role: msg.role,
+        content: msg.content.trim(),
+      }));
+
     const userMsg: ChatMessageItem = {
       id: `user-${Date.now()}`,
       role: "user",
@@ -94,7 +106,7 @@ export const useAgent = () => {
 
     try {
       await agentService.streamMessage(
-        { message: trimmed },
+        { message: trimmed, history: historyPayload },
         (event: AgentStreamEvent) => {
           if (controller.signal.aborted) return;
 
