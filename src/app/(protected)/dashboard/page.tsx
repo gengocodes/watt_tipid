@@ -12,7 +12,7 @@ import { AiInsightsBanner } from "@/features/energy/components/AiInsightsBanner"
 import { LoadingScreen } from "@/shared/ui/LoadingScreen";
 import { ErrorScreen } from "@/shared/ui/ErrorScreen";
 import { Button } from "@/components/ui/button";
-import { DollarSign, Zap, Cpu, Sparkles, Plus, Tv } from "lucide-react";
+import { DollarSign, Zap, Cpu, Sparkles, Plus } from "lucide-react";
 
 export default function DashboardPage() {
   const { user } = useAuth();

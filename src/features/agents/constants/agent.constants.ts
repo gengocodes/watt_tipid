@@ -43,3 +43,9 @@ export const SUGGESTED_PROMPTS = [
     prompt: "What is my energy saving score and what can I do to improve it?",
   },
 ];
+
+export const MUTATION_TOOL_NAMES = new Set([
+  "add_user_appliance",
+  "update_user_appliance",
+  "delete_user_appliance",
+]);
