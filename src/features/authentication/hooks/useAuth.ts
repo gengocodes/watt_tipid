@@ -1,12 +1,14 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "../store/auth.store";
+import { useAgentStore } from "@/features/agents/store/agent.store";
 import { authService } from "../services/auth.service";
 import { LoginInput, RegisterInput } from "../schemas/auth.schema";
 import { toast } from "react-toastify";
 
 export const useAuth = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const {
     user,
     isAuthenticated,
@@ -17,6 +19,13 @@ export const useAuth = () => {
     setRegisteredEmail,
     setAuthView,
   } = useAuthStore();
+  const { resetMessages } = useAgentStore();
+
+  const clearAllClientState = () => {
+    clear();
+    resetMessages();
+    queryClient.clear();
+  };
 
   const loginMutation = useMutation({
     mutationFn: (data: LoginInput) => authService.login(data),
@@ -53,12 +62,12 @@ export const useAuth = () => {
   const logoutMutation = useMutation({
     mutationFn: () => authService.logout(),
     onSuccess: () => {
-      clear();
+      clearAllClientState();
       router.push("/");
     },
     onError: () => {
       // In case api logout fails, clean up client state and redirect anyway
-      clear();
+      clearAllClientState();
       router.push("/");
     },
   });

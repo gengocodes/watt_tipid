@@ -22,7 +22,7 @@ export function AppHeader() {
   };
 
   return (
-    <header className="flex h-20 shrink-0 items-center justify-between border-b bg-sidebar px-6">
+    <header className="sticky top-0 z-20 flex h-20 shrink-0 items-center justify-between border-b bg-sidebar px-6">
       <div className="flex items-center gap-4">
         <SidebarTrigger className="text-muted-foreground block md:hidden" />
         <Separator orientation="vertical" className="block md:hidden" />

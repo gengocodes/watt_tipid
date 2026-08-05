@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { agentService } from "../services/agent.service";
 import {
@@ -8,9 +9,11 @@ import {
   AgentStreamEvent,
   ChatHistoryMessage,
 } from "../types/agent.types";
+import { MUTATION_TOOL_NAMES } from "../constants/agent.constants";
 import { useAgentStore } from "../store/agent.store";
 
 export const useAgent = () => {
+  const queryClient = useQueryClient();
   const {
     messages,
     addMessage,
@@ -24,6 +27,7 @@ export const useAgent = () => {
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
+  const hasMutatedAppliancesRef = useRef(false);
   const abortControllerRef = useRef<AbortController | null>(null);
 
   const cancelStream = useCallback(() => {
@@ -129,6 +133,9 @@ export const useAgent = () => {
                 event.tool_name,
                 "completed",
               );
+              if (MUTATION_TOOL_NAMES.has(event.tool_name)) {
+                hasMutatedAppliancesRef.current = true;
+              }
               break;
 
             case "token":
@@ -141,6 +148,13 @@ export const useAgent = () => {
               break;
 
             case "complete":
+              if (hasMutatedAppliancesRef.current) {
+                queryClient.invalidateQueries({ queryKey: ["appliances"] });
+                queryClient.invalidateQueries({
+                  queryKey: ["dashboardSummary"],
+                });
+                hasMutatedAppliancesRef.current = false;
+              }
               finishStream();
               break;
           }
