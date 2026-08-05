@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, AnchorHTMLAttributes, FC } from "react";
+import React, { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Copy, Check, ExternalLink } from "lucide-react";
+import { Copy, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ChatMessageItem } from "../types/agent.types";
 import { ASSISTANT_NAME } from "../constants/agent.constants";
@@ -11,29 +11,11 @@ import { AgentAvatar } from "./AgentAvatar";
 import { UserAvatar } from "./UserAvatar";
 import { AgentExecutionTimeline } from "./AgentExecutionTimeline";
 import { AgentWebSources } from "./AgentWebSources";
+import { MARKDOWN_COMPONENTS } from "./MarkdownComponents";
 
 interface ChatMessageProps {
   message: ChatMessageItem;
 }
-
-const MarkdownLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({
-  href,
-  children,
-}) => (
-  <a
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="text-primary font-medium hover:underline inline-flex items-center gap-0.5 cursor-pointer underline-offset-2"
-  >
-    {children}
-    <ExternalLink className="size-3 inline shrink-0" />
-  </a>
-);
-
-const MARKDOWN_COMPONENTS = {
-  a: MarkdownLink,
-};
 
 export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   const isUser = message.role === "user";
@@ -125,7 +107,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
             {message.content && (
               <div className="w-full flex flex-col gap-2">
                 <div className="rounded-2xl rounded-tl-xs px-4 py-3 text-sm transition-all leading-relaxed relative group shadow-none border bg-card text-card-foreground">
-                  <div className="prose prose-sm max-w-none space-y-2 text-foreground leading-relaxed wrap-break-words">
+                  <div className="max-w-none space-y-2 text-foreground leading-relaxed wrap-break-words">
                     <ReactMarkdown
                       remarkPlugins={[remarkGfm]}
                       components={MARKDOWN_COMPONENTS}
