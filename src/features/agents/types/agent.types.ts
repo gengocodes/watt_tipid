@@ -1,5 +1,11 @@
 export type ActivityStatus = "started" | "completed";
 
+export interface DiscoveredSource {
+  title: string;
+  url: string;
+  domain: string;
+}
+
 export interface AgentActivity {
   id: string;
   message: string;
