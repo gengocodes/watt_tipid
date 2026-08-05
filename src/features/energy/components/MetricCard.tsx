@@ -19,14 +19,14 @@ export function MetricCard({
   iconColor,
 }: Readonly<MetricCardProps>) {
   return (
-    <Card className="overflow-hidden shadow-sm rounded-2xl transition-all duration-300 hover:shadow-md">
+    <Card className="overflow-hidden shadow-sm rounded-3xl transition-all duration-300 hover:shadow-md">
       <CardContent className="p-6">
         <div className="flex items-center justify-between">
-          <div className="flex flex-col gap-2">
-            <span className="text-sm font-semibold text-muted-foreground/60 uppercase">
+          <div className="flex flex-col gap-1.5">
+            <span className="text-xs font-semibold text-muted-foreground/70 uppercase tracking-wider">
               {title}
             </span>
-            <span className="text-3xl font-extrabold tracking-tight">
+            <span className="text-3xl font-black tracking-tight text-foreground">
               {value}
             </span>
             <span className="text-xs font-medium text-muted-foreground leading-none">
@@ -35,7 +35,7 @@ export function MetricCard({
           </div>
 
           <div
-            className={`flex h-14 w-14 items-center justify-center rounded-2xl ${iconBgColor} ${iconColor} transition-transform duration-300 hover:scale-105`}
+            className={`flex h-14 w-14 items-center justify-center rounded-2xl ${iconBgColor} ${iconColor} transition-transform duration-300 hover:scale-105 shadow-inner`}
           >
             {icon}
           </div>

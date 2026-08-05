@@ -7,6 +7,9 @@ import {
   Calculator,
   Lightbulb,
   Clock,
+  Plus,
+  Settings,
+  BarChart3,
   ArrowUpRight,
 } from "lucide-react";
 import { SUGGESTED_PROMPTS } from "../constants/agent.constants";
@@ -31,6 +34,12 @@ export const SuggestedPrompts: React.FC<SuggestedPromptsProps> = ({
         return <Lightbulb className="size-4 text-emerald-500 shrink-0" />;
       case "clock":
         return <Clock className="size-4 text-purple-500 shrink-0" />;
+      case "plus":
+        return <Plus className="size-4 text-teal-500 shrink-0" />;
+      case "settings":
+        return <Settings className="size-4 text-slate-500 shrink-0" />;
+      case "chart":
+        return <BarChart3 className="size-4 text-indigo-500 shrink-0" />;
       default:
         return <Sparkles className="size-4 text-primary shrink-0" />;
     }

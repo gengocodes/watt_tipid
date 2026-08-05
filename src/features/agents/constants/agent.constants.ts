@@ -9,6 +9,13 @@ export const SUGGESTED_PROMPTS = [
       "Which of my appliances use the most electricity and how can I reduce their consumption?",
   },
   {
+    icon: "plus",
+    title: "Add an Appliance",
+    desc: "Tell Gorlock about an appliance to track it",
+    prompt:
+      "I want to add my air conditioner. It's 1000 watts and I use it about 8 hours a day.",
+  },
+  {
     icon: "calculator",
     title: "My Monthly Electricity Cost",
     desc: "Check my estimated bill and energy usage",
@@ -21,6 +28,13 @@ export const SUGGESTED_PROMPTS = [
     desc: "Get energy-saving advice based on my appliances",
     prompt:
       "Give me personalized tips to reduce my electricity bill based on my appliances and energy usage.",
+  },
+  {
+    icon: "settings",
+    title: "Update My Appliances",
+    desc: "Change wattage, usage hours, or icons of appliances",
+    prompt:
+      "Can you show me my appliances? I need to update some of their details.",
   },
   {
     icon: "chart",
