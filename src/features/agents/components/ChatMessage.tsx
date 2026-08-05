@@ -1,19 +1,39 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, AnchorHTMLAttributes, FC } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Copy, Check } from "lucide-react";
+import { Copy, Check, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ChatMessageItem } from "../types/agent.types";
 import { ASSISTANT_NAME } from "../constants/agent.constants";
 import { AgentAvatar } from "./AgentAvatar";
 import { UserAvatar } from "./UserAvatar";
 import { AgentExecutionTimeline } from "./AgentExecutionTimeline";
+import { AgentWebSources } from "./AgentWebSources";
 
 interface ChatMessageProps {
   message: ChatMessageItem;
 }
+
+const MarkdownLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({
+  href,
+  children,
+}) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-primary font-medium hover:underline inline-flex items-center gap-0.5 cursor-pointer underline-offset-2"
+  >
+    {children}
+    <ExternalLink className="size-3 inline shrink-0" />
+  </a>
+);
+
+const MARKDOWN_COMPONENTS = {
+  a: MarkdownLink,
+};
 
 export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   const isUser = message.role === "user";
@@ -28,8 +48,8 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   return (
     <div
       className={cn(
-        "flex gap-3 md:gap-4 items-start w-full transition-all duration-200 animate-in fade-in-50 slide-in-from-bottom-2",
-        isUser ? "flex-row-reverse" : "flex-row",
+        "flex gap-3 md:gap-4 items-start w-full transition-all duration-200 animate-in fade-in-50 slide-in-from-bottom-2 group",
+        isUser ? "flex-row-reverse" : "flex-row"
       )}
     >
       {isUser ? (
@@ -41,19 +61,52 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
       <div
         className={cn(
           "flex flex-col gap-1 w-full max-w-full overflow-hidden",
-          isUser ? "items-end" : "items-start",
+          isUser ? "items-end" : "items-start"
         )}
       >
-        <div className="flex items-center gap-2 px-1">
-          <span className="text-xs font-semibold text-foreground">
-            {isUser ? "You" : ASSISTANT_NAME}
-          </span>
-          <span className="text-xxxs text-muted-foreground/70">
-            {message.createdAt.toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
-          </span>
+        <div
+          className={cn(
+            "flex items-center w-full px-1",
+            isUser ? "flex-row-reverse justify-start" : "justify-between"
+          )}
+        >
+          <div
+            className={cn(
+              "flex items-center gap-2",
+              isUser && "flex-row-reverse"
+            )}
+          >
+            <span className="text-xs font-semibold text-foreground">
+              {isUser ? "You" : ASSISTANT_NAME}
+            </span>
+            <span className="text-xxxs text-muted-foreground/70">
+              {message.createdAt.toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </span>
+          </div>
+
+          {!isUser && message.content && (
+            <button
+              type="button"
+              onClick={handleCopy}
+              className="opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md hover:bg-muted/60 text-xxs text-muted-foreground hover:text-foreground cursor-pointer"
+              title="Copy message to clipboard"
+            >
+              {copied ? (
+                <>
+                  <Check className="size-3 text-primary" />
+                  <span className="text-primary font-medium">Copied</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="size-3" />
+                  <span>Copy</span>
+                </>
+              )}
+            </button>
+          )}
         </div>
 
         {isUser ? (
@@ -70,33 +123,19 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
             />
 
             {message.content && (
-              <div className="rounded-2xl rounded-tl-xs px-4 py-3 text-sm transition-all leading-relaxed relative group shadow-none border bg-card text-card-foreground">
-                <div className="prose prose-sm max-w-none space-y-2 text-foreground leading-relaxed wrap-break-words">
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                    {message.content}
-                  </ReactMarkdown>
+              <div className="w-full flex flex-col gap-2">
+                <div className="rounded-2xl rounded-tl-xs px-4 py-3 text-sm transition-all leading-relaxed relative group shadow-none border bg-card text-card-foreground">
+                  <div className="prose prose-sm max-w-none space-y-2 text-foreground leading-relaxed wrap-break-words">
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={MARKDOWN_COMPONENTS}
+                    >
+                      {message.content}
+                    </ReactMarkdown>
+                  </div>
                 </div>
 
-                <div className="flex items-center justify-end gap-1 pt-1.5 text-xxxs text-muted-foreground/80">
-                  <button
-                    type="button"
-                    onClick={handleCopy}
-                    className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md hover:bg-muted/50 transition-colors text-xxs font-medium cursor-pointer text-muted-foreground hover:text-foreground"
-                    title="Copy message to clipboard"
-                  >
-                    {copied ? (
-                      <>
-                        <Check className="h-3 w-3 text-primary" />
-                        <span className="text-primary">Copied</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="h-3 w-3" />
-                        <span>Copy</span>
-                      </>
-                    )}
-                  </button>
-                </div>
+                <AgentWebSources content={message.content} />
               </div>
             )}
           </div>

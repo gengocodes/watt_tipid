@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, FC } from "react";
-import { Brain, CheckCircle2, ChevronRight } from "lucide-react";
+import { Brain, CheckCircle2, ChevronRight, Globe } from "lucide-react";
 import { AgentActivity } from "../types/agent.types";
 import { Marker, MarkerIcon, MarkerContent } from "@/components/ui/marker";
 import { Spinner } from "@/components/ui/spinner";
@@ -11,6 +11,57 @@ interface AgentExecutionTimelineProps {
   activities?: AgentActivity[];
   executionTimeSeconds?: number;
 }
+
+const renderActivityIcon = (activity: AgentActivity) => {
+  const isWebSearch = activity.id.includes("web-search");
+
+  if (isWebSearch) {
+    return (
+      <Globe
+        className={cn(
+          "size-3.5 text-primary shrink-0",
+          activity.status !== "completed" && "animate-pulse text-emerald-500",
+        )}
+      />
+    );
+  }
+
+  if (activity.status === "completed") {
+    return <CheckCircle2 className="size-3.5 text-primary shrink-0" />;
+  }
+
+  return <Spinner className="size-3.5 text-primary shrink-0" />;
+};
+
+const renderActivityMessage = (activity: AgentActivity) => {
+  const isWebSearch = activity.id.includes("web-search");
+
+  if (isWebSearch && activity.message.includes("Searching:")) {
+    const parts = activity.message.split("Searching:");
+    return (
+      <span className="inline-flex items-center gap-1.5 flex-wrap">
+        <span>Searching:</span>
+        <span className="font-medium text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-full text-xxs">
+          {parts[1]?.trim().replaceAll('"', "")}
+        </span>
+      </span>
+    );
+  }
+
+  if (isWebSearch && activity.message.includes("Found search results for:")) {
+    const parts = activity.message.split("Found search results for:");
+    return (
+      <span className="inline-flex items-center gap-1.5 flex-wrap">
+        <span>Found web results for:</span>
+        <span className="font-medium text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-full text-xxs">
+          {parts[1]?.trim().replaceAll('"', "")}
+        </span>
+      </span>
+    );
+  }
+
+  return activity.message;
+};
 
 export const AgentExecutionTimeline: FC<AgentExecutionTimelineProps> = ({
   activities,
@@ -32,15 +83,9 @@ export const AgentExecutionTimeline: FC<AgentExecutionTimelineProps> = ({
           <div className="flex flex-col gap-1.5 pl-1">
             {activities.map((activity) => (
               <Marker key={activity.id} className="text-xs gap-2">
-                <MarkerIcon>
-                  {activity.status === "completed" ? (
-                    <CheckCircle2 className="size-3.5 text-sidebar-primary shrink-0" />
-                  ) : (
-                    <Spinner className="size-3.5 text-sidebar-primary shrink-0" />
-                  )}
-                </MarkerIcon>
+                <MarkerIcon>{renderActivityIcon(activity)}</MarkerIcon>
                 <MarkerContent className="text-xs font-medium text-muted-foreground/90">
-                  {activity.message}
+                  {renderActivityMessage(activity)}
                 </MarkerContent>
               </Marker>
             ))}
@@ -57,7 +102,7 @@ export const AgentExecutionTimeline: FC<AgentExecutionTimelineProps> = ({
         onClick={() => setIsExpanded((prev) => !prev)}
         className="group inline-flex items-center gap-1.5 py-0.5 text-xs font-medium text-muted-foreground/80 hover:text-foreground transition-colors cursor-pointer select-none self-start"
       >
-        <Brain className="size-3.5 text-muted-foreground/70 group-hover:text-foreground transition-colors shrink-0" />
+        <Brain className="size-3.5 text-muted-foreground/70 group-hover:text-primary transition-colors shrink-0" />
         <span className="tracking-tight font-medium">
           Thought for {executionTimeSeconds} seconds
         </span>
@@ -71,14 +116,12 @@ export const AgentExecutionTimeline: FC<AgentExecutionTimelineProps> = ({
       </button>
 
       {isExpanded && hasActivities && (
-        <div className="flex flex-col gap-1.5 pl-3 ml-2 border-l border-border/60 py-1.5 text-xs animate-in fade-in-50 duration-200">
+        <div className="flex flex-col gap-1.5 pl-3 ml-2 border-l border-primary/20 py-1.5 text-xs animate-in fade-in-50 duration-200">
           {activities.map((activity) => (
             <Marker key={activity.id} className="text-xs gap-2">
-              <MarkerIcon>
-                <CheckCircle2 className="size-3.5 text-sidebar-primary shrink-0" />
-              </MarkerIcon>
+              <MarkerIcon>{renderActivityIcon(activity)}</MarkerIcon>
               <MarkerContent className="text-xs font-medium text-muted-foreground">
-                {activity.message}
+                {renderActivityMessage(activity)}
               </MarkerContent>
             </Marker>
           ))}
