@@ -45,9 +45,12 @@
     "typescript": "^5"
   },
   "overrides": {
-    "fast-uri": "3.1.4",
+    "fast-uri": "3.1.5",
     "postcss": "8.5.18",
     "sharp": "0.35.0",
-    "@hono/node-server": "2.0.10"
+    "@hono/node-server": "2.0.10",
+    "ip-address": "10.3.1",
+    "undici": "7.29.0",
+    "hono": "4.12.34"
   }
 }
