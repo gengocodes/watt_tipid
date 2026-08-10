@@ -86,7 +86,7 @@ export default function AppliancesPage() {
 
   return (
     <div className="space-y-8 max-w-7xl mx-auto">
-      <div className="flex items-center justify-between">
+      <div data-tour="appliances-header" className="flex items-center justify-between">
         <div className="flex flex-col gap-2">
           <h1 className="text-3xl font-extrabold tracking-tight">
             Appliance Manager
@@ -97,7 +97,7 @@ export default function AppliancesPage() {
         </div>
 
         {!isAdding && !editingAppliance && (
-          <Button onClick={() => setIsAdding(true)}>
+          <Button data-tour="appliances-add-btn" onClick={() => setIsAdding(true)}>
             <Plus className="h-4 w-4" />
             Add Appliance
           </Button>

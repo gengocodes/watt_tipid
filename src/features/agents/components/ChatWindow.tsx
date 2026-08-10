@@ -20,7 +20,7 @@ export const ChatWindow: React.FC = () => {
 
   return (
     <div className="flex flex-col h-full w-full bg-background overflow-hidden relative">
-      <div className="flex-1 overflow-y-auto w-full px-3 md:px-6 py-4 md:py-6 scroll-smooth flex flex-col">
+      <div data-tour="chat-messages" className="flex-1 overflow-y-auto w-full px-3 md:px-6 py-4 md:py-6 scroll-smooth flex flex-col">
         <div className="max-w-3xl md:max-w-4xl mx-auto w-full space-y-6 flex-1 flex flex-col">
           {messages.map((msg) => {
             const hasData =
@@ -48,10 +48,12 @@ export const ChatWindow: React.FC = () => {
                 or personalized energy saving advice.
               </p>
 
-              <SuggestedPrompts
-                onSelectPrompt={sendMessage}
-                disabled={isSending}
-              />
+              <div data-tour="chat-prompts" className="w-full">
+                <SuggestedPrompts
+                  onSelectPrompt={sendMessage}
+                  disabled={isSending}
+                />
+              </div>
             </div>
           )}
 
@@ -59,7 +61,7 @@ export const ChatWindow: React.FC = () => {
         </div>
       </div>
 
-      <footer className="w-full px-3 md:px-6 pt-2 pb-4 shrink-0">
+      <footer data-tour="chat-input" className="w-full px-3 md:px-6 pt-2 pb-4 shrink-0">
         <div className="max-w-3xl md:max-w-4xl mx-auto w-full">
           <ChatInput
             onSend={sendMessage}

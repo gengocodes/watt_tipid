@@ -3,8 +3,8 @@
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/features/authentication";
 import { useAgentStore } from "@/features/agents/store/agent.store";
-import { toast } from "react-toastify";
-import { Bell, SquarePen } from "lucide-react";
+import { GuideTourButton } from "@/features/tour";
+import { SquarePen } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
@@ -42,14 +42,7 @@ export function AppHeader() {
       </div>
 
       <div className="flex items-center gap-4">
-        <button
-          type="button"
-          className="cursor-pointer relative h-9 w-9 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
-          onClick={() => toast.info("Coming soon...")}
-        >
-          <Bell className="h-5 w-5" />
-          <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-sidebar-primary" />
-        </button>
+        <GuideTourButton />
 
         <Separator orientation="vertical" />
         <div className="flex items-center gap-3 pl-2">

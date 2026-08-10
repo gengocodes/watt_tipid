@@ -88,6 +88,7 @@ export function SavingTipsSummaryHeader({
 
   return (
     <div
+      data-tour="savings-header"
       className={`relative overflow-hidden rounded-2xl ${HEADER_GRADIENT_STYLES} p-6 sm:p-8 shadow-lg mb-6`}
     >
       <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">

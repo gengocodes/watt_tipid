@@ -48,6 +48,7 @@ export function SavingTipCard({
   return (
     <>
       <div
+        data-tour="savings-tip-card"
         className={cn(
           "group relative flex flex-col sm:flex-row items-start gap-4 rounded-2xl border p-5 sm:p-6 shadow-xs transition-all duration-200",
           getCardContainerStyle(),

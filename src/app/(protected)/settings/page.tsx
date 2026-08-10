@@ -13,8 +13,12 @@ export default function SettingsPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-8">
-        <ElectricityRateCard />
-        <ProfileSettingsCard />
+        <div data-tour="settings-profile">
+          <ElectricityRateCard />
+        </div>
+        <div data-tour="settings-security">
+          <ProfileSettingsCard />
+        </div>
       </div>
     </div>
   );

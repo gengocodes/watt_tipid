@@ -19,7 +19,7 @@ export function SavingTipsFilter({
   counts,
 }: Readonly<SavingTipsFilterProps>) {
   return (
-    <div className="flex items-center gap-1 border-b pb-3 mb-6 overflow-x-auto">
+    <div data-tour="savings-filter-tabs" className="flex items-center gap-1 border-b pb-3 mb-6 overflow-x-auto">
       {SAVING_TIPS_TABS.map((tab) => {
         const isActive = activeTab === tab.id;
         const count = counts[tab.id];
