@@ -18,6 +18,7 @@ interface EditApplianceCardProps {
   electricityRate: number;
   onSubmit: (data: ApplianceInput) => void;
   onCancel: () => void;
+  isLoading?: boolean;
 }
 
 export function EditApplianceCard({
@@ -25,6 +26,7 @@ export function EditApplianceCard({
   electricityRate,
   onSubmit,
   onCancel,
+  isLoading = false,
 }: Readonly<EditApplianceCardProps>) {
   const [liveKwh, setLiveKwh] = useState(appliance.monthly_kwh);
 
@@ -57,6 +59,7 @@ export function EditApplianceCard({
             icon: appliance.icon,
           }}
           submitLabel="Save Changes"
+          isLoading={isLoading}
           onValuesChange={handleValuesChange}
         />
 

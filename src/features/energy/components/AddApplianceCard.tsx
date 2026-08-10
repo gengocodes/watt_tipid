@@ -11,11 +11,13 @@ import { ApplianceInput } from "../schemas/appliance.schema";
 interface AddApplianceCardProps {
   onSubmit: (data: ApplianceInput) => void;
   onCancel: () => void;
+  isLoading?: boolean;
 }
 
 export function AddApplianceCard({
   onSubmit,
   onCancel,
+  isLoading = false,
 }: Readonly<AddApplianceCardProps>) {
   return (
     <Card className="border-border rounded-2xl mb-6 shadow-sm">
@@ -32,6 +34,7 @@ export function AddApplianceCard({
           onSubmit={onSubmit}
           onCancel={onCancel}
           submitLabel="Add Appliance"
+          isLoading={isLoading}
         />
       </CardContent>
     </Card>

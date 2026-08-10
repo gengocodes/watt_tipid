@@ -1,3 +1,8 @@
+export type ApplianceAnalysisStatus =
+  | "NOT_ANALYZED"
+  | "EFFICIENT"
+  | "HAS_RECOMMENDATIONS";
+
 export interface ApplianceResponse {
   id: string;
   user_id: string;
@@ -8,6 +13,8 @@ export interface ApplianceResponse {
   icon: string;
   is_active: boolean;
   monthly_kwh: number;
+  analysis_status: ApplianceAnalysisStatus;
+  analysis_session_id: string | null;
   created_at: string;
   updated_at: string;
 }

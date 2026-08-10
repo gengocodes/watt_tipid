@@ -18,6 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Loader2 } from "lucide-react";
 import { ICONS_CONFIG } from "../constants/constants";
 
 interface ApplianceFormProps {
@@ -25,6 +26,7 @@ interface ApplianceFormProps {
   onCancel: () => void;
   defaultValues?: Partial<ApplianceInput>;
   submitLabel?: string;
+  isLoading?: boolean;
   onValuesChange?: (values: { wattage: number; hours: number }) => void;
 }
 
@@ -33,6 +35,7 @@ export function ApplianceForm({
   onCancel,
   defaultValues,
   submitLabel = "Save Changes",
+  isLoading = false,
   onValuesChange,
 }: Readonly<ApplianceFormProps>) {
   const {
@@ -209,10 +212,13 @@ export function ApplianceForm({
       </div>
 
       <div className="flex items-center justify-end gap-3 pt-4 border-t">
-        <Button variant="outline" onClick={onCancel}>
+        <Button variant="outline" onClick={onCancel} disabled={isLoading}>
           Cancel
         </Button>
-        <Button type="submit">{submitLabel}</Button>
+        <Button type="submit" disabled={isLoading}>
+          {isLoading && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
+          {isLoading ? "Saving..." : submitLabel}
+        </Button>
       </div>
     </form>
   );

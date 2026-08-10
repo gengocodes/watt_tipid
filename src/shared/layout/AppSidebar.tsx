@@ -33,7 +33,12 @@ export function AppSidebar() {
   const { state, toggleSidebar } = useSidebar();
   const isCollapsed = state === "collapsed";
 
-  const menuItems = [
+  const menuItems: {
+    title: string;
+    url: string;
+    icon: typeof ChartNoAxesColumn;
+    disabled?: boolean;
+  }[] = [
     {
       title: "Dashboard",
       url: "/dashboard",
@@ -53,7 +58,6 @@ export function AppSidebar() {
       title: "Savings Tips",
       url: "/savings-tips",
       icon: Lightbulb,
-      disabled: true,
     },
     {
       title: "Settings",
