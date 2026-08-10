@@ -16,6 +16,8 @@ export const useAppliances = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["appliances"] });
       queryClient.invalidateQueries({ queryKey: ["dashboardSummary"] });
+      queryClient.invalidateQueries({ queryKey: ["savingTips"] });
+      queryClient.invalidateQueries({ queryKey: ["savingTipsSummary"] });
     },
   });
 
@@ -25,6 +27,8 @@ export const useAppliances = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["appliances"] });
       queryClient.invalidateQueries({ queryKey: ["dashboardSummary"] });
+      queryClient.invalidateQueries({ queryKey: ["savingTips"] });
+      queryClient.invalidateQueries({ queryKey: ["savingTipsSummary"] });
     },
   });
 
@@ -33,6 +37,8 @@ export const useAppliances = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["appliances"] });
       queryClient.invalidateQueries({ queryKey: ["dashboardSummary"] });
+      queryClient.invalidateQueries({ queryKey: ["savingTips"] });
+      queryClient.invalidateQueries({ queryKey: ["savingTipsSummary"] });
     },
   });
 

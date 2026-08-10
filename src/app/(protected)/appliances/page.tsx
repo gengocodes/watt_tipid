@@ -21,7 +21,9 @@ export default function AppliancesPage() {
     appliances,
     isLoading: appliancesLoading,
     createAppliance,
+    isCreating,
     updateAppliance,
+    isUpdating,
     deleteAppliance,
     error: appliancesError,
   } = useAppliances();
@@ -106,6 +108,7 @@ export default function AppliancesPage() {
         <AddApplianceCard
           onSubmit={handleAddSubmit}
           onCancel={() => setIsAdding(false)}
+          isLoading={isCreating}
         />
       )}
 
@@ -115,6 +118,7 @@ export default function AppliancesPage() {
           electricityRate={settings.electricity_rate_php_kwh}
           onSubmit={handleEditSubmit}
           onCancel={() => setEditingAppliance(null)}
+          isLoading={isUpdating}
         />
       )}
 

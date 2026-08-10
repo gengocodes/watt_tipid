@@ -94,13 +94,13 @@ export const ICONS_CONFIG: IconConfig[] = [
 ];
 
 export const CATEGORY_STYLES: Record<string, string> = {
-  Cooling: "bg-sky-50/85 text-sky-700 border border-sky-100/30",
-  Kitchen: "bg-orange-50/85 text-orange-700 border border-orange-100/30",
-  Entertainment: "bg-indigo-50/85 text-indigo-700 border border-indigo-100/30",
-  Laundry: "bg-cyan-50/85 text-cyan-700 border border-cyan-100/30",
-  Lighting: "bg-yellow-50/85 text-yellow-700 border border-yellow-100/30",
-  Devices: "bg-purple-50/85 text-purple-700 border border-purple-100/30",
-  Other: "bg-slate-50/85 text-slate-700 border border-slate-100/30",
+  Cooling: "bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/20 shadow-2xs font-semibold rounded-full px-3 py-0.5 text-xs inline-flex items-center gap-1",
+  Kitchen: "bg-orange-500/10 text-orange-700 dark:text-orange-300 border border-orange-500/20 shadow-2xs font-semibold rounded-full px-3 py-0.5 text-xs inline-flex items-center gap-1",
+  Entertainment: "bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border border-indigo-500/20 shadow-2xs font-semibold rounded-full px-3 py-0.5 text-xs inline-flex items-center gap-1",
+  Laundry: "bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/20 shadow-2xs font-semibold rounded-full px-3 py-0.5 text-xs inline-flex items-center gap-1",
+  Lighting: "bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20 shadow-2xs font-semibold rounded-full px-3 py-0.5 text-xs inline-flex items-center gap-1",
+  Devices: "bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20 shadow-2xs font-semibold rounded-full px-3 py-0.5 text-xs inline-flex items-center gap-1",
+  Other: "bg-slate-500/10 text-slate-700 dark:text-slate-300 border border-slate-500/20 shadow-2xs font-semibold rounded-full px-3 py-0.5 text-xs inline-flex items-center gap-1",
 };
 
 export const CATEGORY_COLORS: Record<string, string> = {
