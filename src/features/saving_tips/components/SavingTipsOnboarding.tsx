@@ -16,7 +16,10 @@ export function SavingTipsOnboarding({
   );
 
   return (
-    <div className="relative overflow-hidden flex flex-col items-center justify-center text-center p-6 sm:p-10 rounded-3xl border border-dashed border-emerald-500/25 bg-card/60 backdrop-blur-xs shadow-xs my-6 space-y-5">
+    <div
+      data-tour="savings-onboarding"
+      className="relative overflow-hidden flex flex-col items-center justify-center text-center p-6 sm:p-10 rounded-3xl border border-dashed border-emerald-500/25 bg-card/60 backdrop-blur-xs shadow-xs my-6 space-y-5"
+    >
       <div className="space-y-2 max-w-md px-2">
         <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
           Unlock Personalized AI Tips

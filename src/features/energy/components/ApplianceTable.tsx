@@ -23,7 +23,7 @@ export function ApplianceTable({
   const hasAppliances = appliances && appliances.length > 0;
 
   return (
-    <div className="flex flex-col gap-4">
+    <div data-tour="appliances-table" className="flex flex-col gap-4">
       <div className="overflow-hidden rounded-2xl border shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">

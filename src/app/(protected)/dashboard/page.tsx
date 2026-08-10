@@ -75,7 +75,7 @@ export default function DashboardPage() {
 
       <AiInsightsBanner summary={summary} />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div data-tour="dashboard-stats" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <MetricCard
           title="Estimated Monthly Cost"
           value={`₱${summary.estimated_monthly_cost.toLocaleString(undefined, {
@@ -111,7 +111,7 @@ export default function DashboardPage() {
         <div className="lg:col-span-2">
           <ConsumptionTrendChart data={summary.monthly_trend} />
         </div>
-        <div>
+        <div data-tour="dashboard-score">
           <EnergySavingScoreGauge
             score={summary.energy_saving_score}
             status={summary.score_status}
@@ -119,7 +119,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div data-tour="dashboard-chart" className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div>
           <CategoryPieChart data={summary.category_shares} />
         </div>
