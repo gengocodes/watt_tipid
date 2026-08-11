@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   title: "WattTipid",
   description:
     "Agentic AI web application for Filipino households electricity saving",
+  icons: {
+    icon: "/logo.jpg",
+  },
 };
 
 export default function RootLayout({

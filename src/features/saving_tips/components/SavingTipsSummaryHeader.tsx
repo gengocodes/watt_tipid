@@ -6,13 +6,8 @@ import {
 } from "../types/types";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
-import {
-  Sparkles,
-  RefreshCw,
-  AlertCircle,
-  Clock,
-  Bot,
-} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Sparkles, RefreshCw, AlertCircle, Clock } from "lucide-react";
 import { useCooldownTimer } from "../hooks/useCooldownTimer";
 import { formatCurrency } from "../utils/saving_tips.utils";
 import {
@@ -43,7 +38,12 @@ export function SavingTipsSummaryHeader({
 
   if (isLoading) {
     return (
-      <div className="rounded-2xl bg-emerald-800 p-6 sm:p-8 shadow-md mb-6">
+      <div
+        className={cn(
+          "rounded-3xl p-6 sm:p-8 shadow-md mb-6",
+          HEADER_GRADIENT_STYLES,
+        )}
+      >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2">
             <Skeleton className="h-4 w-48 bg-white/20" />
@@ -110,7 +110,7 @@ export function SavingTipsSummaryHeader({
             <Button
               onClick={onGenerate}
               disabled={!canGenerate}
-              className="bg-emerald-400 hover:bg-emerald-300 text-emerald-950 font-bold px-5 py-2.5 rounded-xl shadow-lg shadow-emerald-950/20 gap-2 transition-all duration-200 hover:shadow-emerald-400/20 hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:hover:scale-100 disabled:shadow-none disabled:cursor-not-allowed cursor-pointer"
+              className="bg-[#00b067] hover:bg-[#009e5c] text-[#012b1c] font-bold px-5.5 py-2.5 rounded-2xl shadow-md gap-2 transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed cursor-pointer"
             >
               {isInProgress || isGenerating ? (
                 <RefreshCw className="size-4 animate-spin text-emerald-950" />
@@ -121,26 +121,22 @@ export function SavingTipsSummaryHeader({
             </Button>
 
             {(isInProgress || isGenerating) && (
-              <span className="inline-flex items-center gap-2 text-xs font-semibold px-3.5 py-1.5 rounded-full bg-amber-400/15 text-amber-200 border border-amber-400/30 backdrop-blur-md shadow-xs animate-pulse">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-300"></span>
-                </span>
-                <Bot className="size-3.5 text-amber-300 animate-bounce" />
+              <span className="inline-flex items-center gap-2 text-xs font-medium px-3.5 py-2 rounded-xl bg-white/10 text-white border border-white/20 backdrop-blur-md">
+                <RefreshCw className="size-3.5 animate-spin text-emerald-200" />
                 <span>{AI_ASSISTANT_NAME} is generating tips...</span>
               </span>
             )}
 
             {isOutdated && !isInProgress && !isGenerating && (
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1.5 rounded-full bg-amber-400/15 text-amber-200 border border-amber-400/30 backdrop-blur-md shadow-xs">
-                <AlertCircle className="size-3.5 text-amber-300" />
+              <span className="inline-flex items-center gap-1.5 text-xs font-medium px-3.5 py-2 rounded-xl bg-white/10 text-white border border-white/20 backdrop-blur-md">
+                <AlertCircle className="size-3.5 text-emerald-200" />
                 <span>Appliance configuration changed</span>
               </span>
             )}
 
             {isCooldown && !isInProgress && !isGenerating && (
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1.5 rounded-full bg-white/10 text-emerald-100 border border-white/15 backdrop-blur-md shadow-xs font-mono tracking-tight">
-                <Clock className="size-3.5 text-emerald-300" />
+              <span className="inline-flex items-center gap-1.5 text-xs font-medium px-3.5 py-2 rounded-xl bg-white/10 text-white border border-white/20 backdrop-blur-md">
+                <Clock className="size-3.5 text-emerald-200" />
                 <span>Cooldown: {timeRemaining || "24h 00m 00s"}</span>
               </span>
             )}

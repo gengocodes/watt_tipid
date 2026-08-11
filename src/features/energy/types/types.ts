@@ -10,7 +10,7 @@ export interface ApplianceResponse {
   category: string;
   wattage_watts: number;
   daily_usage_hours: number;
-  icon: string;
+  icon?: string;
   is_active: boolean;
   monthly_kwh: number;
   analysis_status: ApplianceAnalysisStatus;
@@ -24,7 +24,7 @@ export interface ApplianceCreate {
   category: string;
   wattage_watts: number;
   daily_usage_hours: number;
-  icon: string;
+  icon?: string;
 }
 
 export interface ApplianceUpdate {

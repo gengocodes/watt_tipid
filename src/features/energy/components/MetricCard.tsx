@@ -5,40 +5,31 @@ interface MetricCardProps {
   title: string;
   value: string | number;
   subtext: string;
-  icon: React.ReactNode;
-  iconBgColor?: string;
-  iconColor?: string;
+  accentBorderColor?: string;
 }
 
 export function MetricCard({
   title,
   value,
   subtext,
-  icon,
-  iconBgColor,
-  iconColor,
+  accentBorderColor = "border-t-primary/30",
 }: Readonly<MetricCardProps>) {
   return (
-    <Card className="overflow-hidden shadow-sm rounded-3xl transition-all duration-300 hover:shadow-md">
-      <CardContent className="p-6">
-        <div className="flex items-center justify-between">
-          <div className="flex flex-col gap-1.5">
-            <span className="text-xs font-semibold text-muted-foreground/70 uppercase tracking-wider">
-              {title}
-            </span>
-            <span className="text-3xl font-black tracking-tight text-foreground">
-              {value}
-            </span>
-            <span className="text-xs font-medium text-muted-foreground leading-none">
-              {subtext}
-            </span>
-          </div>
+    <Card
+      className={`overflow-hidden shadow-sm rounded-2xl border-t-2 ${accentBorderColor} transition-all duration-200 hover:shadow-md bg-card`}
+    >
+      <CardContent className="p-5 flex flex-col justify-between h-full gap-3">
+        <span className="text-xs font-bold text-muted-foreground/70 uppercase tracking-wider">
+          {title}
+        </span>
 
-          <div
-            className={`flex h-14 w-14 items-center justify-center rounded-2xl ${iconBgColor} ${iconColor} transition-transform duration-300 hover:scale-105 shadow-inner`}
-          >
-            {icon}
+        <div className="space-y-1">
+          <div className="text-3xl font-black tracking-tight text-foreground">
+            {value}
           </div>
+          <p className="text-xs font-medium text-muted-foreground">
+            {subtext}
+          </p>
         </div>
       </CardContent>
     </Card>

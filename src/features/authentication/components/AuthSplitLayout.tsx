@@ -1,4 +1,5 @@
 import { FC, ReactElement } from "react";
+import { AppLogo } from "@/shared/ui/AppLogo";
 import {
   Leaf,
   TrendingDown,
@@ -51,9 +52,7 @@ export const AuthSplitLayout: FC<AuthSplitLayoutProps> = ({
         <AuthDecorCircles className="bottom-0 left-0 -translate-x-1/4 translate-y-1/4" />
 
         <div className="flex items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-muted/20">
-            <Leaf className="w-5 h-5" />
-          </div>
+          <AppLogo size={40} />
           <span className="text-xl font-bold tracking-tight">WattTipid</span>
         </div>
 
@@ -88,7 +87,7 @@ export const AuthSplitLayout: FC<AuthSplitLayoutProps> = ({
         </div>
 
         <div className="text-xs text-muted/50 z-10">
-          © 2025 WattTipid · Web-Based GenAI Energy Advisory
+          © 2026 WattTipid · Web-Based GenAI Energy Advisory
         </div>
       </div>
 

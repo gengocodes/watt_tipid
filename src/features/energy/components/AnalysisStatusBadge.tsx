@@ -1,5 +1,8 @@
 "use client";
 
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+
 interface AnalysisStatusBadgeProps {
   status?: string;
 }
@@ -9,23 +12,26 @@ export function AnalysisStatusBadge({
 }: Readonly<AnalysisStatusBadgeProps>) {
   if (status === "EFFICIENT") {
     return (
-      <span className="inline-flex items-center rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20 px-3 py-0.5 text-xs font-medium">
-        Efficient
-      </span>
+      <span className="text-xs font-normal text-muted-foreground">Optimal</span>
     );
   }
 
   if (status === "HAS_RECOMMENDATIONS") {
     return (
-      <span className="inline-flex items-center rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20 px-3 py-0.5 text-xs font-medium">
-        Has Tips
-      </span>
+      <Link
+        href="/savings-tips"
+        className="inline-flex items-center gap-0.5 text-xs font-medium text-foreground hover:text-foreground/80 underline underline-offset-2 cursor-pointer group"
+        title="View savings tips for this appliance"
+      >
+        <span>View Tip</span>
+        <ArrowUpRight className="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+      </Link>
     );
   }
 
   return (
-    <span className="inline-flex items-center rounded-full bg-muted/60 text-muted-foreground border border-border/80 px-3 py-0.5 text-xs font-medium">
-      Not Analyzed
+    <span className="text-xs font-normal text-muted-foreground/60">
+      Pending
     </span>
   );
 }

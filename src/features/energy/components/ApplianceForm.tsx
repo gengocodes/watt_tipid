@@ -19,7 +19,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Loader2 } from "lucide-react";
-import { ICONS_CONFIG } from "../constants/constants";
 
 interface ApplianceFormProps {
   onSubmit: (data: ApplianceInput) => void;
@@ -59,7 +58,6 @@ export function ApplianceForm({
   // Watch fields for live preview calculation
   const wattage = useWatch({ control, name: "wattage_watts" });
   const hours = useWatch({ control, name: "daily_usage_hours" });
-  const selectedIcon = useWatch({ control, name: "icon" });
   const selectedCategory = useWatch({ control, name: "category" });
 
   useEffect(() => {
@@ -165,47 +163,6 @@ export function ApplianceForm({
           {errors.daily_usage_hours && (
             <p className="text-xs text-destructive font-medium">
               {errors.daily_usage_hours.message}
-            </p>
-          )}
-        </div>
-
-        <div className="space-y-2 md:col-span-2">
-          <Label className="text-xs font-medium text-muted-foreground">
-            Select Appliance Icon
-          </Label>
-          <input type="hidden" {...register("icon")} />
-          <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-9 gap-3">
-            {ICONS_CONFIG.map((item) => {
-              const IconComp = item.icon;
-              const isSelected = selectedIcon === item.value;
-
-              return (
-                <button
-                  key={item.value}
-                  type="button"
-                  onClick={() =>
-                    setValue("icon", item.value, {
-                      shouldValidate: true,
-                      shouldDirty: true,
-                    })
-                  }
-                  className={`flex flex-col items-center justify-center p-3 rounded-xl border text-center transition-all duration-200 cursor-pointer gap-2 ${
-                    isSelected
-                      ? item.activeClass
-                      : "border-muted hover:border-muted-foreground hover:bg-muted text-muted-foreground"
-                  }`}
-                >
-                  <IconComp className="h-6 w-6" />
-                  <span className="text-xxs font-medium tracking-tight">
-                    {item.label}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-          {errors.icon && (
-            <p className="text-xs text-destructive font-medium">
-              {errors.icon.message}
             </p>
           )}
         </div>

@@ -39,15 +39,15 @@ export function EditApplianceCard({
 
   return (
     <Card className="border-border rounded-2xl mb-6 shadow-sm">
-      <CardHeader className="pb-2">
-        <CardTitle className="text-lg font-bold tracking-tight">
+      <CardHeader className="p-5 sm:p-6 pb-0 sm:pb-0 space-y-1">
+        <CardTitle className="text-base sm:text-lg font-bold tracking-tight">
           Edit Appliance
         </CardTitle>
         <CardDescription className="text-xs text-muted-foreground">
           Modify appliance usage profiles. Estimates recalculate immediately.
         </CardDescription>
       </CardHeader>
-      <CardContent className="p-6 space-y-4">
+      <CardContent className="p-5 sm:p-6 pt-4 sm:pt-4 space-y-4">
         <ApplianceForm
           onSubmit={onSubmit}
           onCancel={onCancel}

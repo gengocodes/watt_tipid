@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, ReactElement } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   registerSchema,
@@ -11,6 +11,7 @@ import { useAuth } from "@/features/authentication/hooks/useAuth";
 import { FormError } from "@/shared/ui/FormError";
 import { FormInput } from "@/shared/ui/FormInput";
 import { FormSubmitButton } from "@/shared/ui/FormSubmitButton";
+import { PhilippineLocationSelect } from "@/shared/ui/PhilippineLocationSelect";
 import { getAxiosErrorMessage } from "@/shared/utils/error";
 
 export const RegisterForm: FC = (): ReactElement => {
@@ -18,6 +19,7 @@ export const RegisterForm: FC = (): ReactElement => {
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterInput>({
@@ -61,14 +63,16 @@ export const RegisterForm: FC = (): ReactElement => {
         {...register("lastName")}
       />
 
-      <FormInput
-        id="barangayCity"
-        type="text"
-        label="Barangay / City"
-        placeholder="Brgy. Lahug, Cebu City"
-        disabled={isRegistering}
-        error={errors.barangayCity?.message}
-        {...register("barangayCity")}
+      <Controller
+        name="barangayCity"
+        control={control}
+        render={({ field }) => (
+          <PhilippineLocationSelect
+            onChange={field.onChange}
+            disabled={isRegistering}
+            error={errors.barangayCity?.message}
+          />
+        )}
       />
 
       <FormInput

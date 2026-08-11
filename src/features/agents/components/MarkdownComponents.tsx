@@ -74,4 +74,34 @@ export const MARKDOWN_COMPONENTS = {
     <del className="line-through text-muted-foreground">{children}</del>
   ),
   hr: () => <hr className="my-3 border-border/60" />,
+  table: ({ children }: HTMLAttributes<HTMLTableElement>) => (
+    <div className="my-3 w-full overflow-x-auto rounded-xl border border-border/80 shadow-2xs">
+      <table className="w-full text-left text-xs border-collapse">
+        {children}
+      </table>
+    </div>
+  ),
+  thead: ({ children }: HTMLAttributes<HTMLTableSectionElement>) => (
+    <thead className="bg-muted/60 border-b border-border/80 text-foreground font-semibold uppercase tracking-wider text-[11px]">
+      {children}
+    </thead>
+  ),
+  tbody: ({ children }: HTMLAttributes<HTMLTableSectionElement>) => (
+    <tbody className="divide-y divide-border/50 bg-card text-foreground">
+      {children}
+    </tbody>
+  ),
+  tr: ({ children }: HTMLAttributes<HTMLTableRowElement>) => (
+    <tr className="transition-colors hover:bg-muted/40">{children}</tr>
+  ),
+  th: ({ children }: HTMLAttributes<HTMLTableCellElement>) => (
+    <th className="px-3.5 py-2.5 font-bold text-foreground/90 whitespace-nowrap">
+      {children}
+    </th>
+  ),
+  td: ({ children }: HTMLAttributes<HTMLTableCellElement>) => (
+    <td className="px-3.5 py-2.5 text-foreground/90 align-middle">
+      {children}
+    </td>
+  ),
 };
