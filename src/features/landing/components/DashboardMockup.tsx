@@ -32,7 +32,7 @@ export const DashboardMockup: FC = (): ReactElement => {
       <div className="flex items-center justify-between border-b border-primary/10 pb-4 mb-4">
         <div>
           <p className="text-xs font-semibold text-muted-foreground/50">
-            JUNE 2025
+            JUNE 2026
           </p>
           <h3 className="text-lg font-semibold text-foreground">
             Monthly Overview

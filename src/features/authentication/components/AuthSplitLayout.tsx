@@ -87,7 +87,7 @@ export const AuthSplitLayout: FC<AuthSplitLayoutProps> = ({
         </div>
 
         <div className="text-xs text-muted/50 z-10">
-          © 2025 WattTipid · Web-Based GenAI Energy Advisory
+          © 2026 WattTipid · Web-Based GenAI Energy Advisory
         </div>
       </div>
 

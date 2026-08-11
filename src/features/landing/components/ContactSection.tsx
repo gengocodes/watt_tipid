@@ -11,6 +11,9 @@ import { Button } from "@/components/ui/button";
 import { SectionBadge } from "./SectionBadge";
 import { ContactInfoItem } from "./ContactInfoItem";
 import { FormInput } from "@/shared/ui/FormInput";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { contactService } from "../services/contact.service";
 
 const contactSchema = z.object({
   fullName: z.string().min(1, "Full name is required"),
@@ -38,10 +41,18 @@ export const ContactSection: FC = (): ReactElement => {
   });
 
   const onSubmit = async (data: ContactInput): Promise<void> => {
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    // TODO: Send contact form data to server
-    setIsSuccess(true);
-    reset();
+    try {
+      await contactService.sendContact(data);
+      setIsSuccess(true);
+      reset();
+      toast.success("Thank you! Your message has been sent successfully.");
+    } catch (err: unknown) {
+      const errorMsg =
+        axios.isAxiosError(err) && err.response?.data?.detail
+          ? err.response.data.detail
+          : "Failed to send contact message. Please try again.";
+      toast.error(errorMsg);
+    }
   };
 
   return (
