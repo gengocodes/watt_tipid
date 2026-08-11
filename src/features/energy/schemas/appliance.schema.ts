@@ -26,7 +26,7 @@ export const applianceSchema = z.object({
     .number({ message: "Daily usage must be a number" })
     .gt(0, "Daily usage must be greater than 0 hours")
     .lte(24, "Daily usage cannot exceed 24 hours per day"),
-  icon: z.string().min(1, "Please select an icon"),
+  icon: z.string(),
 });
 
 export type ApplianceInput = z.infer<typeof applianceSchema>;
