@@ -38,6 +38,13 @@ export const DASHBOARD_TOUR: TourConfig = {
         "Analyze historical monthly usage trends and category shares across your appliances.",
       side: "top",
     },
+    {
+      target: '[data-tour="dashboard-manage-history"]',
+      title: "Manage Monthly History",
+      content:
+        "Log, update, or delete historical monthly kWh consumption and bill cost entries to build multi-month trend charts.",
+      side: "left",
+    },
   ],
 };
 

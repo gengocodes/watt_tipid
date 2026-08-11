@@ -3,6 +3,7 @@ export * from "./hooks/useAppliances";
 export * from "./hooks/useDashboardSummary";
 export * from "./hooks/useUserSettings";
 export * from "./schemas/appliance.schema";
+export * from "./schemas/monthly_trend.schema";
 export * from "./services/appliance.service";
 export * from "./services/dashboard.service";
 export * from "./services/user.service";
