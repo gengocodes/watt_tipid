@@ -12,7 +12,7 @@ import { AiInsightsBanner } from "@/features/energy/components/AiInsightsBanner"
 import { LoadingScreen } from "@/shared/ui/LoadingScreen";
 import { ErrorScreen } from "@/shared/ui/ErrorScreen";
 import { Button } from "@/components/ui/button";
-import { DollarSign, Zap, Cpu, Sparkles, Plus } from "lucide-react";
+import { Sparkles, Plus } from "lucide-react";
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -82,28 +82,22 @@ export default function DashboardPage() {
             minimumFractionDigits: 0,
             maximumFractionDigits: 0,
           })}`}
-          subtext={`Based on ₱${summary.electricity_rate_php_kwh.toFixed(2)}/kWh`}
-          icon={<DollarSign className="h-6 w-6" />}
-          iconBgColor="bg-emerald-50"
-          iconColor="text-emerald-600"
+          subtext={`Based on ₱${summary.electricity_rate_php_kwh.toFixed(2)}/kWh rate`}
+          accentBorderColor="border-t-emerald-500"
         />
 
         <MetricCard
           title="Current Month Projection"
           value={`${summary.total_monthly_kwh.toFixed(0)} kWh`}
           subtext="Calculated monthly estimate"
-          icon={<Zap className="h-6 w-6" />}
-          iconBgColor="bg-amber-50"
-          iconColor="text-amber-600"
+          accentBorderColor="border-t-amber-500"
         />
 
         <MetricCard
           title="Active Appliances"
           value={summary.appliance_count}
           subtext="Across all categories"
-          icon={<Cpu className="h-6 w-6" />}
-          iconBgColor="bg-blue-50"
-          iconColor="text-blue-600"
+          accentBorderColor="border-t-blue-500"
         />
       </div>
 
