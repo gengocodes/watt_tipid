@@ -1,9 +1,7 @@
 "use client";
 
 import { FC, ReactElement, useState, useEffect, useCallback } from "react";
-import { Label } from "@/components/ui/label";
-import { MapPin, ChevronDown, Loader2 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { FormSelect, FormSelectOption } from "@/shared/ui/FormSelect";
 
 const PSGC_BASE = "https://psgc.gitlab.io/api";
 
@@ -16,81 +14,6 @@ interface PhilippineLocationSelectProps {
   onChange: (value: string) => void;
   error?: string;
   disabled?: boolean;
-}
-
-interface SelectFieldProps {
-  id: string;
-  label: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  options: PsgcItem[];
-  disabled?: boolean;
-  isLoading?: boolean;
-  placeholder: string;
-  disabledPlaceholder?: string;
-  icon?: ReactElement;
-}
-
-const SelectField: FC<SelectFieldProps> = ({
-  id,
-  label,
-  value,
-  onChange,
-  options,
-  disabled = false,
-  isLoading = false,
-  placeholder,
-  disabledPlaceholder,
-  icon,
-}): ReactElement => (
-  <div className="space-y-1.5">
-    <Label
-      htmlFor={id}
-      className="text-xs font-medium text-muted-foreground tracking-wider flex items-center justify-between"
-    >
-      <span>{label}</span>
-      {isLoading && (
-        <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground font-normal">
-          <Loader2 className="h-3 w-3 animate-spin text-primary" /> Loading...
-        </span>
-      )}
-    </Label>
-    <div className="relative">
-      <select
-        id={id}
-        value={value}
-        onChange={onChange}
-        disabled={disabled || isLoading}
-        className={cn(
-          "flex h-10 w-full rounded-xl border border-input bg-background px-3 py-2 text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 appearance-none cursor-pointer pr-8 text-foreground",
-          !value && "text-muted-foreground",
-        )}
-      >
-        <option value="" disabled>
-          {getPlaceholderText(disabled, disabledPlaceholder, isLoading, placeholder)}
-        </option>
-        {options.map((item) => (
-          <option key={item.code} value={item.code} className="text-foreground">
-            {item.name}
-          </option>
-        ))}
-      </select>
-      <span className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground">
-        {icon || <ChevronDown className="h-4 w-4" />}
-      </span>
-    </div>
-  </div>
-);
-
-function getPlaceholderText(
-  disabled: boolean,
-  disabledPlaceholder: string | undefined,
-  isLoading: boolean,
-  placeholder: string,
-): string {
-  if (disabled && disabledPlaceholder) return disabledPlaceholder;
-  if (isLoading) return "Loading...";
-  return placeholder;
 }
 
 function usePsgcFetch(url: string | null): {
@@ -113,7 +36,9 @@ function usePsgcFetch(url: string | null): {
         if (!res.ok) throw new Error(`Failed to fetch ${url}`);
         const json: PsgcItem[] = await res.json();
         if (isMounted) {
-          const sorted = json.toSorted((a, b) => a.name.localeCompare(b.name));
+          const sorted = json.toSorted((a, b) =>
+            a.name.localeCompare(b.name)
+          );
           setData(sorted);
         }
       } catch (err) {
@@ -133,6 +58,10 @@ function usePsgcFetch(url: string | null): {
   return { data, isLoading };
 }
 
+function toSelectOptions(items: PsgcItem[]): FormSelectOption[] {
+  return items.map((item) => ({ value: item.code, label: item.name }));
+}
+
 export const PhilippineLocationSelect: FC<PhilippineLocationSelectProps> = ({
   onChange,
   error,
@@ -144,25 +73,23 @@ export const PhilippineLocationSelect: FC<PhilippineLocationSelectProps> = ({
   const [cityName, setCityName] = useState<string>("");
   const [barangayName, setBarangayName] = useState<string>("");
 
-  // Fetch each level
   const { data: regions, isLoading: isLoadingRegions } = usePsgcFetch(
-    `${PSGC_BASE}/regions/`,
+    `${PSGC_BASE}/regions/`
   );
   const { data: provinces, isLoading: isLoadingProvinces } = usePsgcFetch(
-    regionCode ? `${PSGC_BASE}/regions/${regionCode}/provinces/` : null,
+    regionCode ? `${PSGC_BASE}/regions/${regionCode}/provinces/` : null
   );
   const { data: cities, isLoading: isLoadingCities } = usePsgcFetch(
     provinceCode
       ? `${PSGC_BASE}/provinces/${provinceCode}/cities-municipalities/`
-      : null,
+      : null
   );
   const { data: barangays, isLoading: isLoadingBarangays } = usePsgcFetch(
     cityCode
       ? `${PSGC_BASE}/cities-municipalities/${cityCode}/barangays/`
-      : null,
+      : null
   );
 
-  // Sync formatted value to parent form
   const syncValue = useCallback(
     (bgy: string, city: string) => {
       if (city && bgy) {
@@ -173,7 +100,7 @@ export const PhilippineLocationSelect: FC<PhilippineLocationSelectProps> = ({
         onChange("");
       }
     },
-    [onChange],
+    [onChange]
   );
 
   useEffect(() => {
@@ -181,7 +108,7 @@ export const PhilippineLocationSelect: FC<PhilippineLocationSelectProps> = ({
   }, [barangayName, cityName, syncValue]);
 
   const handleRegionChange = (
-    e: React.ChangeEvent<HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLSelectElement>
   ): void => {
     setRegionCode(e.target.value);
     setProvinceCode("");
@@ -191,7 +118,7 @@ export const PhilippineLocationSelect: FC<PhilippineLocationSelectProps> = ({
   };
 
   const handleProvinceChange = (
-    e: React.ChangeEvent<HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLSelectElement>
   ): void => {
     setProvinceCode(e.target.value);
     setCityCode("");
@@ -199,7 +126,9 @@ export const PhilippineLocationSelect: FC<PhilippineLocationSelectProps> = ({
     setBarangayName("");
   };
 
-  const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+  const handleCityChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ): void => {
     const code = e.target.value;
     const found = cities.find((c) => c.code === code);
     setCityCode(code);
@@ -208,62 +137,68 @@ export const PhilippineLocationSelect: FC<PhilippineLocationSelectProps> = ({
   };
 
   const handleBarangayChange = (
-    e: React.ChangeEvent<HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLSelectElement>
   ): void => {
     setBarangayName(e.target.value);
   };
 
+  const barangayOptions: FormSelectOption[] = barangays.map((b) => ({
+    value: b.name,
+    label: b.name,
+  }));
+
   return (
-    <div className="space-y-3">
-      <SelectField
+    <div className="space-y-4">
+      <FormSelect
         id="regionSelect"
         label="Region"
         value={regionCode}
         onChange={handleRegionChange}
-        options={regions}
+        options={toSelectOptions(regions)}
         disabled={disabled}
         isLoading={isLoadingRegions}
         placeholder="Select Region"
-        icon={<MapPin className="h-4 w-4" />}
       />
 
-      <SelectField
-        id="provinceSelect"
-        label="Province"
-        value={provinceCode}
-        onChange={handleProvinceChange}
-        options={provinces}
-        disabled={disabled || !regionCode}
-        isLoading={isLoadingProvinces}
-        placeholder="Select Province"
-        disabledPlaceholder="Select a Region first"
-      />
+      {regionCode && (
+        <FormSelect
+          id="provinceSelect"
+          label="Province"
+          value={provinceCode}
+          onChange={handleProvinceChange}
+          options={toSelectOptions(provinces)}
+          disabled={disabled}
+          isLoading={isLoadingProvinces}
+          placeholder="Select Province"
+        />
+      )}
 
-      <SelectField
-        id="citySelect"
-        label="City / Municipality"
-        value={cityCode}
-        onChange={handleCityChange}
-        options={cities}
-        disabled={disabled || !provinceCode}
-        isLoading={isLoadingCities}
-        placeholder="Select City / Municipality"
-        disabledPlaceholder="Select a Province first"
-      />
+      {provinceCode && (
+        <FormSelect
+          id="citySelect"
+          label="City / Municipality"
+          value={cityCode}
+          onChange={handleCityChange}
+          options={toSelectOptions(cities)}
+          disabled={disabled}
+          isLoading={isLoadingCities}
+          placeholder="Select City / Municipality"
+        />
+      )}
 
-      <SelectField
-        id="barangaySelect"
-        label="Barangay"
-        value={barangayName}
-        onChange={handleBarangayChange}
-        options={barangays.map((b) => ({ ...b, code: b.name }))}
-        disabled={disabled || !cityCode}
-        isLoading={isLoadingBarangays}
-        placeholder="Select Barangay"
-        disabledPlaceholder="Select a City first"
-      />
-
-      {error && <p className="text-xs text-destructive font-medium">{error}</p>}
+      {cityCode && (
+        <FormSelect
+          id="barangaySelect"
+          label="Barangay"
+          value={barangayName}
+          onChange={handleBarangayChange}
+          options={barangayOptions}
+          disabled={disabled}
+          isLoading={isLoadingBarangays}
+          placeholder="Select Barangay"
+          error={error}
+        />
+      )}
     </div>
   );
 };
