@@ -34,8 +34,8 @@ export const ChatWindow: React.FC = () => {
           })}
 
           {messages.length === 0 && (
-            <div className="flex-1 flex flex-col items-center justify-center text-center animate-in fade-in-50 duration-500 max-w-3xl mx-auto px-2 py-8 my-auto">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground leading-[1.15] max-w-2xl">
+            <div className="flex-1 flex flex-col items-center justify-center text-center animate-in fade-in-50 duration-500 max-w-3xl mx-auto px-1 py-4 sm:py-8 my-auto">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground leading-[1.15] max-w-2xl">
                 What can{" "}
                 <span className="bg-linear-to-r from-chart-5 via-chart-3 to-chart-4 bg-clip-text text-transparent">
                   Gorlock
@@ -43,7 +43,7 @@ export const ChatWindow: React.FC = () => {
                 help you save today?
               </h1>
 
-              <p className="text-sm md:text-base text-muted-foreground mt-3.5 max-w-lg leading-relaxed font-normal">
+              <p className="text-xs sm:text-base text-muted-foreground mt-2 sm:mt-3.5 max-w-lg leading-relaxed font-normal">
                 Ask about your appliance costs, electricity bill calculations,
                 or personalized energy saving advice.
               </p>

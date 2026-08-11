@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/features/authentication";
+import { AppLogo } from "@/shared/ui/AppLogo";
+import { Button } from "@/components/ui/button";
 import {
   Sidebar,
   SidebarContent,
@@ -23,15 +25,15 @@ import {
   Settings,
   LogOut,
   TextAlignJustify,
-  Leaf,
   Circle,
+  X,
 } from "lucide-react";
 
 export function AppSidebar() {
   const pathname = usePathname();
   const { logout } = useAuth();
-  const { state, toggleSidebar } = useSidebar();
-  const isCollapsed = state === "collapsed";
+  const { state, isMobile, setOpenMobile, toggleSidebar } = useSidebar();
+  const isCollapsed = state === "collapsed" && !isMobile;
 
   const menuItems: {
     title: string;
@@ -68,31 +70,31 @@ export function AppSidebar() {
 
   return (
     <Sidebar variant="sidebar" collapsible="icon" className="border-r">
-      <SidebarHeader
-        className={cn(
-          "h-20 border-b p-6 flex justify-between",
-          state === "collapsed" ? "items-center" : "items-start",
-        )}
-      >
+      <SidebarHeader className="h-20 border-b px-4 sm:px-6 flex flex-row items-center justify-between">
         <div className="flex items-center gap-3">
-          <div
-            className={cn(
-              "flex items-center justify-center rounded-xl bg-primary text-background",
-              isCollapsed ? "h-8 w-8" : "h-10 w-10",
-            )}
-          >
-            <Leaf className={cn(isCollapsed ? "h-4 w-4" : "h-5 w-5")} />
-          </div>
+          <AppLogo size={isCollapsed ? 32 : 40} />
 
           {!isCollapsed && (
             <div className="flex flex-col">
-              <span className="font-semibold tracking-tight">WattTipid</span>
-              <span className="text-xxs leading-none text-muted-foreground">
+              <span className="font-bold tracking-tight text-base">WattTipid</span>
+              <span className="text-xxs leading-none text-muted-foreground font-medium">
                 GenAI Energy Advisory
               </span>
             </div>
           )}
         </div>
+
+        {isMobile && (
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setOpenMobile(false)}
+            className="h-9 w-9 rounded-xl text-muted-foreground hover:text-foreground hover:bg-muted cursor-pointer shrink-0"
+            aria-label="Close sidebar"
+          >
+            <X className="size-5" />
+          </Button>
+        )}
       </SidebarHeader>
 
       <SidebarContent className="px-2 py-4">
@@ -125,6 +127,9 @@ export function AppSidebar() {
                     ) : (
                       <Link
                         href={item.url}
+                        onClick={() => {
+                          if (isMobile) setOpenMobile(false);
+                        }}
                         className={cn(
                           "flex items-center w-full gap-3",
                           isCollapsed ? "justify-center" : "",

@@ -7,7 +7,7 @@ import { useAppliances, useUserSettings } from "@/features/energy";
 import { ApplianceTable } from "@/features/energy/components/ApplianceTable";
 import { AddApplianceCard } from "@/features/energy/components/AddApplianceCard";
 import { EditApplianceCard } from "@/features/energy/components/EditApplianceCard";
-import { LoadingScreen } from "@/shared/ui/LoadingScreen";
+import { ApplianceSkeleton } from "@/features/energy/components/ApplianceSkeleton";
 import { ConfirmationDialog } from "@/shared/ui/ConfirmationDialog";
 import { ErrorScreen } from "@/shared/ui/ErrorScreen";
 import {
@@ -37,7 +37,7 @@ export default function AppliancesPage() {
   const isLoading = appliancesLoading || settingsLoading;
 
   if (isLoading) {
-    return <LoadingScreen />;
+    return <ApplianceSkeleton />;
   }
 
   if (appliancesError || !settings) {
@@ -86,8 +86,8 @@ export default function AppliancesPage() {
 
   return (
     <div className="space-y-8 max-w-7xl mx-auto">
-      <div data-tour="appliances-header" className="flex items-center justify-between">
-        <div className="flex flex-col gap-2">
+      <div data-tour="appliances-header" className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border/40 pb-6">
+        <div className="flex flex-col gap-1">
           <h1 className="text-3xl font-extrabold tracking-tight">
             Appliance Manager
           </h1>
@@ -97,9 +97,13 @@ export default function AppliancesPage() {
         </div>
 
         {!isAdding && !editingAppliance && (
-          <Button data-tour="appliances-add-btn" onClick={() => setIsAdding(true)}>
+          <Button
+            data-tour="appliances-add-btn"
+            onClick={() => setIsAdding(true)}
+            className="shrink-0 self-start sm:self-auto font-semibold gap-2 rounded-xl"
+          >
             <Plus className="h-4 w-4" />
-            Add Appliance
+            <span>Add Appliance</span>
           </Button>
         )}
       </div>

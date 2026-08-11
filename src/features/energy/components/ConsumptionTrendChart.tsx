@@ -78,8 +78,8 @@ export function ConsumptionTrendChart({
               </span>
             </div>
           ) : (
-            <div className="w-full h-full">
-              <ResponsiveContainer width="100%" height="100%">
+            <div className="w-full h-full min-h-55">
+              <ResponsiveContainer width="100%" height="100%" minHeight={220}>
                 <AreaChart
                   data={data}
                   margin={{ top: 10, right: 5, left: -25, bottom: 0 }}

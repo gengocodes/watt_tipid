@@ -75,8 +75,8 @@ export function BillHistoryChart({ data }: Readonly<BillHistoryChartProps>) {
               </span>
             </div>
           ) : (
-            <div className="w-full h-full">
-              <ResponsiveContainer width="100%" height="100%">
+            <div className="w-full h-full min-h-55">
+              <ResponsiveContainer width="100%" height="100%" minHeight={220}>
                 <BarChart
                   data={data}
                   margin={{ top: 10, right: 5, left: -20, bottom: 0 }}

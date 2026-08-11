@@ -1,6 +1,7 @@
 "use client";
 
 import { FC, useState, useEffect, ReactElement } from "react";
+import { AppLogo } from "@/shared/ui/AppLogo";
 import { Leaf } from "lucide-react";
 
 interface HeaderProps {
@@ -43,9 +44,7 @@ export const Header: FC<HeaderProps> = ({
           className="flex items-center gap-2 cursor-pointer bg-transparent border-none p-0 text-left"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         >
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-            <Leaf className="w-4 h-4 text-background" />
-          </div>
+          <AppLogo size={32} />
           <span className="text-lg font-semibold text-emerald-900">
             WattTipid
           </span>

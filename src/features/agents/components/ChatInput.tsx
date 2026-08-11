@@ -57,7 +57,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
           placeholder="Ask Gorlock about your appliances, electricity bill, or energy saving tips..."
           disabled={disabled}
           rows={1}
-          className="flex-1 min-h-10 max-h-40 resize-none border-0 outline-none focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 text-xs md:text-sm px-2 md:px-3 py-2 bg-transparent text-foreground placeholder:text-muted-foreground/60 leading-relaxed"
+          className="flex-1 min-h-10 max-h-40 resize-none border-0 outline-none focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 text-base md:text-sm px-2 md:px-3 py-2 bg-transparent text-foreground placeholder:text-muted-foreground/60 leading-relaxed"
         />
 
         {isSending ? (

@@ -9,7 +9,7 @@ import { ConsumptionTrendChart } from "@/features/energy/components/ConsumptionT
 import { CategoryPieChart } from "@/features/energy/components/CategoryPieChart";
 import { BillHistoryChart } from "@/features/energy/components/BillHistoryChart";
 import { AiInsightsBanner } from "@/features/energy/components/AiInsightsBanner";
-import { LoadingScreen } from "@/shared/ui/LoadingScreen";
+import { DashboardSkeleton } from "@/features/energy/components/DashboardSkeleton";
 import { ErrorScreen } from "@/shared/ui/ErrorScreen";
 import { Button } from "@/components/ui/button";
 import { Sparkles, Plus } from "lucide-react";
@@ -33,7 +33,7 @@ export default function DashboardPage() {
   };
 
   if (isLoading) {
-    return <LoadingScreen />;
+    return <DashboardSkeleton />;
   }
 
   if (error || !summary) {

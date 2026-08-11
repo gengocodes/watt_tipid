@@ -53,7 +53,7 @@ export default function SavingsTipsPage() {
     }
   };
 
-  if (isLoadingAppliances) {
+  if (isLoadingAppliances || isLoadingTips || isLoadingSummary) {
     return (
       <div className="container max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
         <SavingTipsSkeleton />
@@ -69,13 +69,21 @@ export default function SavingsTipsPage() {
     );
   }
 
-  const renderTipsContent = () => {
-    if (isLoadingTips) {
-      return <SavingTipsSkeleton />;
-    }
-
-    if (filteredTips.length > 0) {
-      return (
+  return (
+    <div className="container max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
+      <SavingTipsSummaryHeader
+        summary={summary}
+        isLoading={false}
+        analysisStatus={analysisStatus}
+        onGenerate={handleGenerateTips}
+        isGenerating={isGeneratingTips}
+      />
+      <SavingTipsFilter
+        activeTab={activeTab}
+        onSelectTab={setActiveTab}
+        counts={tipCounts}
+      />
+      {filteredTips.length > 0 ? (
         <div className="flex flex-col gap-4">
           {filteredTips.map((tip) => (
             <SavingTipCard
@@ -86,32 +94,12 @@ export default function SavingsTipsPage() {
             />
           ))}
         </div>
-      );
-    }
-
-    return (
-      <SavingTipsEmptyState
-        totalTipsCount={tips.length}
-        activeTab={activeTab}
-      />
-    );
-  };
-
-  return (
-    <div className="container max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
-      <SavingTipsSummaryHeader
-        summary={summary}
-        isLoading={isLoadingSummary}
-        analysisStatus={analysisStatus}
-        onGenerate={handleGenerateTips}
-        isGenerating={isGeneratingTips}
-      />
-      <SavingTipsFilter
-        activeTab={activeTab}
-        onSelectTab={setActiveTab}
-        counts={tipCounts}
-      />
-      {renderTipsContent()}
+      ) : (
+        <SavingTipsEmptyState
+          totalTipsCount={tips.length}
+          activeTab={activeTab}
+        />
+      )}
     </div>
   );
 }

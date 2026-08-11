@@ -6,12 +6,8 @@ import {
 } from "../types/types";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
-import {
-  Sparkles,
-  RefreshCw,
-  AlertCircle,
-  Clock,
-} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Sparkles, RefreshCw, AlertCircle, Clock } from "lucide-react";
 import { useCooldownTimer } from "../hooks/useCooldownTimer";
 import { formatCurrency } from "../utils/saving_tips.utils";
 import {
@@ -42,7 +38,12 @@ export function SavingTipsSummaryHeader({
 
   if (isLoading) {
     return (
-      <div className="rounded-2xl bg-emerald-800 p-6 sm:p-8 shadow-md mb-6">
+      <div
+        className={cn(
+          "rounded-3xl p-6 sm:p-8 shadow-md mb-6",
+          HEADER_GRADIENT_STYLES,
+        )}
+      >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2">
             <Skeleton className="h-4 w-48 bg-white/20" />
