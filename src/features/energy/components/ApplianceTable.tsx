@@ -2,7 +2,7 @@ import { Pencil, Trash2, Plug } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ApplianceResponse } from "../types/types";
-import { CATEGORY_STYLES } from "../constants/constants";
+import { CATEGORY_COLORS } from "../constants/constants";
 import { AnalysisStatusBadge } from "./AnalysisStatusBadge";
 
 interface ApplianceTableProps {
@@ -75,12 +75,15 @@ export function ApplianceTable({
                     </td>
 
                     <td className="px-6 py-4">
-                      <span
-                        className={cn(
-                          CATEGORY_STYLES[app.category] ??
-                            CATEGORY_STYLES.Other,
-                        )}
-                      >
+                      <span className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+                        <span
+                          className="size-2 rounded-full shrink-0"
+                          style={{
+                            backgroundColor:
+                              CATEGORY_COLORS[app.category] ||
+                              CATEGORY_COLORS.Other,
+                          }}
+                        />
                         {app.category}
                       </span>
                     </td>

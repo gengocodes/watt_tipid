@@ -21,15 +21,15 @@ export function AddApplianceCard({
 }: Readonly<AddApplianceCardProps>) {
   return (
     <Card className="border-border rounded-2xl mb-6 shadow-sm">
-      <CardHeader className="pb-2">
-        <CardTitle className="text-lg font-bold tracking-tight">
+      <CardHeader className="p-5 sm:p-6 pb-0 sm:pb-0 space-y-1">
+        <CardTitle className="text-base sm:text-lg font-bold tracking-tight">
           Add New Appliance
         </CardTitle>
         <CardDescription className="text-xs text-muted-foreground">
           Input details to estimate this appliance&apos;s energy consumption.
         </CardDescription>
       </CardHeader>
-      <CardContent className="p-6">
+      <CardContent className="p-5 sm:p-6 pt-4 sm:pt-4">
         <ApplianceForm
           onSubmit={onSubmit}
           onCancel={onCancel}
