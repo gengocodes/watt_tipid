@@ -35,6 +35,17 @@ export const useAuth = () => {
     },
   });
 
+  const googleLoginMutation = useMutation({
+    mutationFn: (credential: string) => authService.googleLogin(credential),
+    onSuccess: (userData) => {
+      setUser(userData);
+      router.push("/dashboard");
+    },
+    onError: () => {
+      toast.error("Google sign-in failed. Please try again.");
+    },
+  });
+
   const registerMutation = useMutation({
     mutationFn: (data: RegisterInput) => authService.register(data),
     onSuccess: (_, variables) => {
@@ -83,6 +94,11 @@ export const useAuth = () => {
     login: loginMutation.mutate,
     isLoggingIn: loginMutation.isPending,
     loginError: loginMutation.error,
+
+    // Google Login Action
+    googleLogin: googleLoginMutation.mutate,
+    isGoogleLoggingIn: googleLoginMutation.isPending,
+    googleLoginError: googleLoginMutation.error,
 
     // Register Action
     register: registerMutation.mutate,

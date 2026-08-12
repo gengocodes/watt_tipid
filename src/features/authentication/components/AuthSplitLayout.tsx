@@ -46,8 +46,8 @@ export const AuthSplitLayout: FC<AuthSplitLayoutProps> = ({
   const isLogin = view === "login";
 
   return (
-    <div className="flex min-h-screen flex-col md:flex-row">
-      <div className="relative flex flex-col justify-between w-full md:w-5/12 bg-primary p-8 md:p-12 text-white overflow-hidden">
+    <div className="flex min-h-screen md:h-screen flex-col md:flex-row md:overflow-hidden">
+      <div className="relative flex flex-col justify-between w-full md:w-5/12 md:h-full bg-primary p-8 md:p-12 text-white overflow-hidden flex-shrink-0">
         <AuthDecorCircles className="top-0 right-0 translate-x-1/4 -translate-y-1/4" />
         <AuthDecorCircles className="bottom-0 left-0 -translate-x-1/4 translate-y-1/4" />
 
@@ -91,8 +91,8 @@ export const AuthSplitLayout: FC<AuthSplitLayoutProps> = ({
         </div>
       </div>
 
-      <div className="flex flex-col justify-center items-center w-full md:w-7/12 p-6 min-h-screen">
-        <div className="w-full max-w-lg p-6">
+      <div className="flex flex-col w-full md:w-7/12 md:h-full md:overflow-y-auto p-6 md:p-12">
+        <div className="w-full max-w-lg p-6 mx-auto my-auto">
           <button
             onClick={onBack}
             className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors mb-6 cursor-pointer"
@@ -106,15 +106,15 @@ export const AuthSplitLayout: FC<AuthSplitLayoutProps> = ({
               {view === "verify_register"
                 ? "Verify your email"
                 : isLogin
-                ? "Welcome back!"
-                : "Create your account"}
+                  ? "Welcome back!"
+                  : "Create your account"}
             </h1>
             <p className="text-muted-foreground text-sm mt-1">
               {view === "verify_register"
                 ? "Verify registration code"
                 : isLogin
-                ? "Sign in to your WattTipid account"
-                : "Start your energy-saving journey today"}
+                  ? "Sign in to your WattTipid account"
+                  : "Start your energy-saving journey today"}
             </p>
           </div>
 

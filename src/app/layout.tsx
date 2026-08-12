@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ToastContainer } from "react-toastify";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import QueryProvider from "@/providers/QueryProvider";
 import AuthProvider from "@/providers/AuthProvider";
 import { InAppBrowserBlocker } from "@/shared/ui/InAppBrowserBlocker";
+import { ENV } from "@/shared/config/env";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -36,13 +38,15 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <QueryProvider>
-          <AuthProvider>
-            <InAppBrowserBlocker />
-            {children}
-            <ToastContainer position="bottom-right" autoClose={2000} />
-          </AuthProvider>
-        </QueryProvider>
+        <GoogleOAuthProvider clientId={ENV.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
+          <QueryProvider>
+            <AuthProvider>
+              <InAppBrowserBlocker />
+              {children}
+              <ToastContainer position="bottom-right" autoClose={2000} />
+            </AuthProvider>
+          </QueryProvider>
+        </GoogleOAuthProvider>
       </body>
     </html>
   );
