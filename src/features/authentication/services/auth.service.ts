@@ -33,6 +33,13 @@ export const authService = {
     return response.data;
   },
 
+  async googleLogin(credential: string): Promise<LoginResponse> {
+    const response = await apiClient.post<LoginResponse>("/auth/google", {
+      credential,
+    });
+    return response.data;
+  },
+
   async logout(): Promise<{ message: string }> {
     const response = await apiClient.post<{ message: string }>("/auth/logout");
     return response.data;
