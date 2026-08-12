@@ -20,6 +20,7 @@ WattTipid provides an interactive dashboard, appliance inventory manager, dynami
   - **Client & Auth State**: `zustand` v5 (Auth state, Chat store, UI state)
 - **Form Management**: `react-hook-form` with `@hookform/resolvers` & `zod` validation
 - **HTTP & SSE Client**: `axios` (with HttpOnly cookie credentials & automated token refresh interceptors), Native `fetch` + `ReadableStream` for SSE streaming
+- **Authentication**: JWT & Google OAuth 2.0 (`@react-oauth/google`)
 - **Data Visualization**: `recharts` v3 (Area charts, Bar charts, Pie charts)
 - **Markdown & Notifications**: `react-markdown` + `remark-gfm`, `react-toastify`
 - **Guided Onboarding**: `@oqlet/react-driver` interactive tour
@@ -78,7 +79,7 @@ Every feature under `src/features/*` is self-contained and organized by concern:
 ## Features
 
 ### 1. Authentication & Onboarding
-- **Split Auth Flow**: Login, multi-step registration with 6-digit numeric email OTP verification.
+- **Split Auth Flow**: Login, multi-step registration with 6-digit numeric email OTP verification, and **Google OAuth 2.0 Sign-In** (`GoogleSignInButton`).
 - **Auth Guard**: Protected layout (`/(protected)/layout.tsx`) verifies authentication state via `GET /auth/me` on app mount.
 - **Interactive Tour**: Guided walkthrough powered by `@oqlet/react-driver`.
 
@@ -136,6 +137,7 @@ Configuration is validated via `@/shared/config/env.ts`:
 | Variable Name | Description | Example / Default |
 |---|---|---|
 | `NEXT_PUBLIC_API_URL` | Base URL of the FastAPI backend API | `http://localhost:8005` |
+| `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | Google OAuth 2.0 Client ID | `your-google-client-id.apps.googleusercontent.com` |
 
 > **Note**: Never expose secrets or private keys in `NEXT_PUBLIC_` variables.
 
