@@ -7,24 +7,26 @@ import { cn } from "@/lib/utils";
 interface SavingTipActionsProps {
   tipId: string;
   isCompleted: boolean;
-  isStale: boolean;
+  isOutdated?: boolean;
+  isStale?: boolean;
   isUpdating: boolean;
   onUpdateStatus: (
     id: string,
-    status: Exclude<SavingTipStatus, "stale">,
+    status: Exclude<SavingTipStatus, "stale" | "outdated">,
   ) => void;
 }
 
 export function SavingTipActions({
   tipId,
   isCompleted,
+  isOutdated,
   isStale,
   isUpdating,
   onUpdateStatus,
 }: Readonly<SavingTipActionsProps>) {
   return (
     <div className="flex items-center gap-2 shrink-0 self-start w-full sm:w-auto justify-between sm:justify-end pt-3 sm:pt-0 border-t sm:border-t-0 border-border">
-      {!isStale && (
+      {!isStale && !isOutdated && (
         <button
           type="button"
           disabled={isUpdating}

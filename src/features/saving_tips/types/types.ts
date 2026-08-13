@@ -1,8 +1,14 @@
-export type FilterTab = "all" | "active" | "completed" | "stale";
+export type FilterTab = "all" | "active" | "completed" | "outdated" | "stale";
 export type SavingTipPriority = "LOW" | "MEDIUM" | "HIGH";
 export type SavingTipEffort = "LOW" | "MEDIUM" | "HIGH";
 export type SavingTipType = "CALCULATED" | "REFERENCE";
-export type SavingTipStatus = "active" | "completed" | "stale" | "deleted";
+export type SavingTipStatus =
+  | "active"
+  | "completed"
+  | "outdated"
+  | "stale"
+  | "deleted";
+
 export type AnalysisSessionStatus =
   | "IN_PROGRESS"
   | "COMPLETED"

@@ -16,7 +16,7 @@ interface SavingTipCardProps {
   tip: SavingTipResponse;
   onUpdateStatus: (
     id: string,
-    status: Exclude<SavingTipStatus, "stale">,
+    status: Exclude<SavingTipStatus, "stale" | "outdated">,
   ) => void;
   isUpdating: boolean;
 }
@@ -29,6 +29,7 @@ export function SavingTipCard({
   const [isBreakdownOpen, setIsBreakdownOpen] = useState(false);
 
   const isCompleted = tip.status === "completed";
+  const isOutdated = tip.status === "outdated";
   const isStale = tip.status === "stale";
   const isCalculated = tip.tip_type === "CALCULATED";
 
@@ -38,6 +39,9 @@ export function SavingTipCard({
   const getCardContainerStyle = (): string => {
     if (isCompleted) {
       return "bg-muted/30 opacity-75 border-muted";
+    }
+    if (isOutdated) {
+      return "bg-blue-500/5 border-blue-500/30";
     }
     if (isStale) {
       return "bg-amber-500/5 border-amber-500/30";
@@ -70,6 +74,7 @@ export function SavingTipCard({
             <SavingTipPriorityBadge priority={tip.priority} />
             <SavingTipApplianceBadge
               applianceName={tip.appliance_name}
+              isOutdated={isOutdated}
               isStale={isStale}
             />
           </div>
@@ -89,6 +94,7 @@ export function SavingTipCard({
         <SavingTipActions
           tipId={tip.id}
           isCompleted={isCompleted}
+          isOutdated={isOutdated}
           isStale={isStale}
           isUpdating={isUpdating}
           onUpdateStatus={onUpdateStatus}

@@ -20,6 +20,7 @@ export interface TipCounts {
   all: number;
   active: number;
   completed: number;
+  outdated: number;
   stale: number;
 }
 
@@ -58,6 +59,7 @@ export function computeTipCounts(tips: SavingTipResponse[]): TipCounts {
     all: tips.length,
     active: tips.filter((t) => t.status === "active").length,
     completed: tips.filter((t) => t.status === "completed").length,
+    outdated: tips.filter((t) => t.status === "outdated").length,
     stale: tips.filter((t) => t.status === "stale").length,
   };
 }
