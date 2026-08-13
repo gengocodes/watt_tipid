@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { Analytics } from "@vercel/analytics/next";
 import QueryProvider from "@/providers/QueryProvider";
 import AuthProvider from "@/providers/AuthProvider";
 import { InAppBrowserBlocker } from "@/shared/ui/InAppBrowserBlocker";
@@ -42,6 +43,7 @@ export default function RootLayout({
           <QueryProvider>
             <AuthProvider>
               <InAppBrowserBlocker />
+              <Analytics />
               {children}
               <ToastContainer position="bottom-right" autoClose={2000} />
             </AuthProvider>

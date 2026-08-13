@@ -46,7 +46,7 @@ export function InAppBrowserBlocker() {
   if (!isInAppBrowser) return null;
 
   return (
-    <div className="fixed inset-0 z-[99999] bg-background/95 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center animate-in fade-in duration-300">
+    <div className="fixed inset-0 z-99999 bg-background/95 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center animate-in fade-in duration-300">
       <div className="max-w-md w-full bg-card border rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 flex flex-col items-center">
         <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary">
           <Compass className="h-8 w-8" />
