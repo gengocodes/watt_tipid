@@ -9,6 +9,7 @@ export const SAVING_TIPS_TABS: { id: FilterTab; label: string }[] = [
   { id: "all", label: "All Tips" },
   { id: "active", label: "Active" },
   { id: "completed", label: "Completed" },
+  { id: "outdated", label: "Reconfigured" },
   { id: "stale", label: "Appliance Deleted" },
 ];
 

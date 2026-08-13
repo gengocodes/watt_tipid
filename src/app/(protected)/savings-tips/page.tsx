@@ -40,7 +40,7 @@ export default function SavingsTipsPage() {
 
   const handleUpdateStatus = (
     id: string,
-    newStatus: Exclude<SavingTipStatus, "stale">,
+    newStatus: Exclude<SavingTipStatus, "stale" | "outdated">,
   ) => {
     updateStatus({ id, data: { status: newStatus } });
   };

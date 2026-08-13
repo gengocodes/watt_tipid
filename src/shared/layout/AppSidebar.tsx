@@ -70,8 +70,13 @@ export function AppSidebar() {
 
   return (
     <Sidebar variant="sidebar" collapsible="icon" className="border-r">
-      <SidebarHeader className="h-20 border-b px-4 sm:px-6 flex flex-row items-center justify-between">
-        <div className="flex items-center gap-3">
+      <SidebarHeader
+        className={cn(
+          "h-20 border-b flex flex-row items-center transition-all duration-200",
+          isCollapsed ? "px-0 justify-center" : "px-4 sm:px-6 justify-between"
+        )}
+      >
+        <div className={cn("flex items-center", isCollapsed ? "justify-center w-full" : "gap-3")}>
           <AppLogo size={isCollapsed ? 32 : 40} />
 
           {!isCollapsed && (
@@ -96,6 +101,7 @@ export function AppSidebar() {
           </Button>
         )}
       </SidebarHeader>
+
 
       <SidebarContent className="px-2 py-4">
         <SidebarMenu className="gap-3">
