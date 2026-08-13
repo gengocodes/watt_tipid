@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import QueryProvider from "@/providers/QueryProvider";
 import AuthProvider from "@/providers/AuthProvider";
 import { InAppBrowserBlocker } from "@/shared/ui/InAppBrowserBlocker";
@@ -47,6 +48,7 @@ export default function RootLayout({
             </AuthProvider>
           </QueryProvider>
         </GoogleOAuthProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
