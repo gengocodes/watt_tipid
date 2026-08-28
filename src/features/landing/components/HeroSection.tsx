@@ -3,6 +3,7 @@ import { Leaf, ArrowRight, ChevronDown } from "lucide-react";
 import { DashboardMockup } from "./DashboardMockup";
 import { SectionBadge } from "./SectionBadge";
 import { Button } from "@/components/ui/button";
+import DotField from "@/components/DotField";
 
 interface HeroSectionProps {
   onRegisterClick: () => void;
@@ -20,7 +21,20 @@ export const HeroSection: FC<HeroSectionProps> = ({
 
   return (
     <section className="relative min-h-[calc(100vh-64px)] flex flex-col justify-between pt-24 md:pt-32 pb-8">
-      <div className="mx-auto max-w-7xl px-6 w-full flex flex-col md:flex-row items-center gap-12 md:gap-16 grow">
+      <div className="absolute inset-0 z-0">
+        <DotField
+          dotRadius={1.5}
+          dotSpacing={20}
+          bulgeStrength={100}
+          glowRadius={0}
+          sparkle={false}
+          waveAmplitude={0}
+          cursorRadius={50}
+          cursorForce={0.1}
+          bulgeOnly
+        />
+      </div>
+      <div className="mx-auto max-w-7xl px-6 w-full flex flex-col md:flex-row items-center gap-12 md:gap-16 grow z-10">
         <div className="flex-1 space-y-6">
           <SectionBadge className="px-5 py-2 gap-2">
             <Leaf />
@@ -81,7 +95,7 @@ export const HeroSection: FC<HeroSectionProps> = ({
         </div>
       </div>
 
-      <div className="flex justify-center items-center mt-4">
+      <div className="flex justify-center items-center mt-4 z-10">
         <button
           type="button"
           onClick={handleScrollDown}
