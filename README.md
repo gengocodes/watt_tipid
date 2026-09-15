@@ -183,3 +183,9 @@ Configuration is validated via `@/shared/config/env.ts`:
 | `npm run build` | Builds production bundle |
 | `npm run start` | Starts Next.js production server |
 | `npm run lint` | Runs ESLint check |
+
+## License
+
+Copyright (c) 2026 Paul Corsino. All rights reserved.
+
+This repository is publicly available for portfolio and educational viewing purposes only. No permission is granted to copy, modify, distribute, or use the source code for commercial purposes without prior written permission.
