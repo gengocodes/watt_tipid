@@ -125,7 +125,9 @@ export function ConsumptionTrendChart({
                       fontWeight: 500,
                     }}
                     formatter={(value) => [`${value} kWh`, "Energy"]}
-                    labelFormatter={(label) => `Month: ${formatMonth(label)}`}
+                    labelFormatter={(label) =>
+                      `Month: ${label != null ? formatMonth(String(label)) : ""}`
+                    }
                   />
                   <Area
                     type="monotone"
