@@ -119,7 +119,9 @@ export function BillHistoryChart({ data }: Readonly<BillHistoryChartProps>) {
                       `₱${Number(value ?? 0).toLocaleString()}`,
                       "Estimated Cost",
                     ]}
-                    labelFormatter={(label) => `Month: ${formatMonth(label)}`}
+                    labelFormatter={(label) =>
+                      `Month: ${label != null ? formatMonth(String(label)) : ""}`
+                    }
                   />
                   <Bar
                     dataKey="cost"

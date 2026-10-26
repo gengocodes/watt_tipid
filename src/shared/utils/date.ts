@@ -2,7 +2,8 @@
  * Formats a month label string from "YYYY-MM" format to a readable short month name (e.g. "Jan", "Feb").
  * Falls back to the original string if parsing fails.
  */
-export const formatMonth = (value: string): string => {
+export const formatMonth = (value?: string | null): string => {
+  if (!value) return "";
   try {
     const parts = value.split("-");
     if (parts.length < 2) return value;
@@ -21,7 +22,8 @@ export const formatMonth = (value: string): string => {
  * Formats a month label string from "YYYY-MM" format to a full month and year name (e.g. "August 2026").
  * Falls back to the original string if parsing fails.
  */
-export const formatMonthWithYear = (value: string): string => {
+export const formatMonthWithYear = (value?: string | null): string => {
+  if (!value) return "";
   try {
     const parts = value.split("-");
     if (parts.length < 2) return value;
